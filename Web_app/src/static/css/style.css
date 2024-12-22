@@ -1,0 +1,61 @@
+:root {
+    --white: #fff;
+    --black: #000;
+
+    --bg-color: var(--black);
+    --bg-ms-cl-color: rgba(27, 25, 45);
+    --color-gold: #e0b526;
+    --color-green: rgb(103, 217, 97);
+    --color-hint: #7e7e7e;
+    --color-underline: #837DCE;
+    --nav-bar-bg-color: rgba(255, 255, 255, 0.03);
+    --bg-grey: rgba(255, 255, 255, 0.08);
+    --bg-yellow: rgba(194, 156, 29);
+
+    --width-max: 40rem;
+}
+
+html, #root {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    max-width: var(--width-max);
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: Lexend, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: var(--white);
+    background-color: var(--bg-color);
+
+    background-image: url("../img/bg_lion.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: min(80vh, 100vw);
+    background-attachment: fixed;
+    height: --tg-viewport-height;
+}
+
+.site-link {
+    text-decoration: none;
+    border-bottom: 0.15rem dashed var(--color-underline);
+}
+
+.message-cloud {
+    border-radius: 1rem;
+    margin: 0.5rem 0.5rem 0 0.5rem;
+    background-color: var(--bg-ms-cl-color);
+}
+
+.gold {
+    color: var(--color-gold);
+}
+
+.tc-root {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
