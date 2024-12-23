@@ -87,6 +87,10 @@
     margin: 0.5rem;
 }
 
+.m-4 {
+    margin: 1rem;
+}
+
 .mb-0 {
     margin-bottom: 0;
 }

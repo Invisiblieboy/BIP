@@ -108,7 +108,10 @@ export async function preInit() {
         if (e.target.className.includes("link-how-buy-rub")) {
             window.open("https://telegra.ph/Kak-kupit-BIP-imeya-RUB-12-04", "_blank")
         }
-        if (e.target.className.includes("wallet-connect")) {
+        if (e.target.className.includes("link-how-create-tk")) {
+            window.open("https://telegra.ph/Kak-sozdat-svoj-koshelek-Tonkeeper-12-16", "_blank")
+        }
+        if (e.target.className.includes("btn_wallet_connect")) {
             await connectWallet()
         }
         if (e.target.className.includes("wallet-disconnect")) {

@@ -67,9 +67,7 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
                                 amount_bip = await calcBIPCount(reply['amount'], reply['token'],
                                                                 price_correct=PRICE_TAX)
                                 message = f'Спасибо за покупку BIP на {reply['amount']} {reply['token']}'
-                                print(f'Success buy for {reply['amount']} {reply['token']} address - {reply['sender']}')
-                                if input() == 'yes':
-                                    await Seller().sendBIPSingle(reply['sender'], amount_bip, message)
+                                await Seller().sendBIPSingle(reply['sender'], amount_bip, message)
 
     await storage.set_item('last_transaction_timestamp', last_transaction_timestamp)
     await storage.set_item('processed_transactions', processed_transactions_str)
@@ -85,6 +83,9 @@ async def autoHandlingNuwBuys(sleep=1):
         await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
         await asyncio.sleep(sleep)
 
+async def main():
+    print(await storage.get_item('processed_transactions'))
+
 
 if __name__ == '__main__':
-    asyncio.run(autoHandlingNuwBuys())
+    asyncio.run(main())

@@ -1,22 +1,29 @@
 import {tonConnectUI} from "../ton/tc.js";
 
 export function walletInit() {
-    const wallet_please_connect = document.getElementById('wallet-please-connect')
-    const wallet_access_connect = document.getElementById('wallet-access-connect')
+    const wallet_please_connect = document.getElementsByClassName('wallet_please_connect')
+    const wallet_access_connect = document.getElementsByClassName('wallet_access_connect')
     const wallet_balance = document.getElementById('wallet_balance')
 
-    if (wallet_please_connect) {
-        if (tonConnectUI.connected) {
-            wallet_please_connect.classList.add('hide')
-            wallet_access_connect.classList.remove('hide')
-            wallet_balance.classList.remove('hide')
-
-        } else {
-            wallet_access_connect.classList.add('hide')
-            wallet_please_connect.classList.remove('hide')
-            wallet_balance.classList.add('hide')
+    if (tonConnectUI.connected) {
+        for (let elem of wallet_please_connect) {
+            elem.classList.add('hide')
         }
+        for (let elem of wallet_access_connect) {
+            elem.classList.remove('hide')
+        }
+        wallet_balance.classList.remove('hide')
+
+    } else {
+        for (let elem of wallet_please_connect) {
+            elem.classList.remove('hide')
+        }
+        for (let elem of wallet_access_connect) {
+            elem.classList.add('hide')
+        }
+        wallet_balance.classList.add('hide')
     }
+
     updateBIPBalanceHTML()
 }
 

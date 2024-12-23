@@ -27,19 +27,22 @@ export const page_wallet = `
             </p>
         </div>
         <div class="flex mt-4">
-            <div class="message-cloud p-4 flex" id="wallet-access-connect">
-                <p class="green text-base">Привязан</p>
+            <div class="message-cloud p-4 wallet_access_connect flex">
+                <p class="green text-lg">Привязан</p>
                 <img class="size-6 wallet-disconnect" src="${path_to_folder}normal/delete_red.png" alt="">
             </div>
-            <div class="message-cloud p-4" id="wallet-please-connect">
-                <p class="wallet-connect site-link gold text-lg" >Подключить кошелек</p>
+            <div class="message-cloud wallet_please_connect p-4">
+                <p class="btn_wallet_connect site-link gold text-lg" >Подключить кошелек</p>
             </div>
-            <div class="message-cloud p-4">
+            <div class="message-cloud wallet_please_connect p-4">
+                <p class="site-link link-how-create-tk text-lg gold">Как создать?</p>
+            </div>
+            <div class="message-cloud text-lg p-4">
                 <p class="inline">Цена BIPCoin - <span id="BIP_price" class="gold">0</span>$</p>
             </div>
         </div>
         
-        <div class="mt-4" id="wallet_balance">
+        <div class="mt-4 wallet_access_connect" id="wallet_balance">
           
             <div class="message-cloud p-4 ">
                 <p class="text-2xl">Баланс</p>
@@ -88,21 +91,21 @@ export const page_cart = `
 export const page_bank = `
     <div id="hub">
         <div class="message-cloud p-4">
-            <p class="text-3xl gold font-bold text-center m-0">Обучения по покупке</p>
-            <p class="text-sm text-hint text-center m-0">если есть:</p>
+            <p class="text-3xl gold font-bold text-center m-0">Обучение</p>
         </div>
-        <div class="text-base font-bold gold flex message-cloud mt-4">
-            <div class="message-cloud p-4 m-a bg-grey mt-2">
-                <p class="site-link link-how-buy-usdt-on-wallet m-0">USDT на криптокошельке в сети TON.</p>
+        <div class="text-base message-cloud mt-4">
+            <p class="text-2xl p-2">Как купить BIPCoin если есть:</p>
+            <div class="p-4 pt-2 gold">
+                <p class="site-link-lite inline link-how-buy-usdt-on-wallet">- USDT на криптокошельке в сети TON.</p><br>
+                <p class="site-link-lite inline pt-1 link-how-buy-usdt-on-CEX">- USDT на криптобирже.</p><br>
+                <p class="site-link-lite inline pt-1 link-how-buy-verif-on-CEX">- RUB и верификация на криптобирже.</p><br>
+                <p class="site-link-lite inline pt-1 link-how-buy-rub">- RUB и желание купить)</p><br>
             </div>
-            <div class="message-cloud p-4 m-a bg-grey mt-2">
-                <p class="site-link link-how-buy-usdt-on-CEX m-0">USDT на криптобирже.</p>
-            </div>
-            <div class="message-cloud p-4 m-a bg-grey mt-2">
-                <p class="site-link link-how-buy-verif-on-CEX m-0">RUB и верификация на криптобирже.</p>
-            </div>
-            <div class="message-cloud p-4 m-a bg-grey mt-2 mb-2">
-                <p class="site-link link-how-buy-rub m-0">RUB и желание купить)</p>
+        </div>
+        <div class="text-base message-cloud mt-4">
+            <p class="text-2xl p-2">Как создать:</p>
+            <div class="p-4 pt-2 gold">
+                <p class="site-link-lite inline link-how-create-tk">- Криптовалютный кошелек.</p><br>
             </div>
         </div>
     </div>`
