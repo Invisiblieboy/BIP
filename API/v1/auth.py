@@ -21,7 +21,7 @@ async def nuw_user(wallet_address, tgInitData):
     id2user[id]: dict = json.loads(WebAppAuth().validate(tgInitData)['user'])
 
     wallet_old = id2wallet.get(id)
-    if wallet_old:
+    if wallet2id.get(wallet_old):
         del wallet2id[wallet_old]
 
     id2wallet[id] = wallet_address
