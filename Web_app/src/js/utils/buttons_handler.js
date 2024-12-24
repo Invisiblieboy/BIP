@@ -1,0 +1,43 @@
+import {selectPage} from "../index.js";
+import {selectImg, setUnselect} from "../page/nav-bar.js";
+import {connectWallet, disconnectWallet} from "../ton/tc.js";
+import {payments_settings} from "../page/cart.js";
+import {sendTransaction} from "../ton/ton.js";
+
+export async function buttonsInit() {
+    document.addEventListener("click", async function (e) {
+        if (e.target?.className.includes("btn_page_wallet")) {
+            selectPage('wallet')
+            setUnselect()
+            selectImg('wallet')
+        }
+        if (e.target?.className.includes("btn_wallet_connect")) {
+            await connectWallet()
+        }
+        if (e.target?.className.includes("btn_wallet_disconnect")) {
+            await disconnectWallet()
+        }
+        if (e.target?.id === "btn_send_transaction") {
+            let message = crypto.randomUUID().replaceAll('-', '')
+            if (payments_settings.can) {
+                if (await sendTransaction(payments_settings.token, payments_settings.amount, message)) {
+                    document.getElementById('btn_send_transaction').value = 'Транзакция обрабатывается'
+                } else {
+                    document.getElementById('btn_send_transaction').value = 'Ошибка при отправке транзакции'
+                }
+            }
+        }
+        if (e.target?.id === "copy_admin_card_number") {
+            let elem = document.getElementById('admin_card_number')
+            elem.classList.add('anim')
+            setTimeout(() => elem.classList.remove('anim'), 1000)
+            await navigator.clipboard.writeText(elem.innerHTML)
+        }
+        if (e.target?.id === "copy_card_send_code") {
+            let elem = document.getElementById('card_send_code')
+            elem.classList.add('anim')
+            setTimeout(() => elem.classList.remove('anim'), 1000)
+            await navigator.clipboard.writeText(elem.innerHTML)
+        }
+    })
+}

@@ -3,19 +3,19 @@ import {path_to_folder} from "../utils/utils.js";
 import {check_verif} from "../utils/tgUtils.js";
 
 export let folders = ['info', 'wallet', 'cart', 'bank']
-export let current_page = "wallet"
-
+export let current_page = "info"
 
 
 export function selectRight() {
     let i = folders.indexOf(current_page) + 1
-    if (i<folders.length){
+    if (i < folders.length) {
         selectPage(folders[i])
     }
 }
+
 export function selectLeft() {
     let i = folders.indexOf(current_page) - 1
-    if (i>=0){
+    if (i >= 0) {
         selectPage(folders[i])
     }
 }
@@ -33,15 +33,8 @@ function getHtmlImg(name, type = 'normal') {
     }
 }
 
-function downloadImages() {
-    folders.forEach((folder) => {
-        localStorage.setItem(`img_${folder}_normal`, `<img src=${path_to_folder + folder + ".png"} alt="">`)
-        localStorage.setItem(`img_${folder}_select`, `<img src=${path_to_folder + 'select/' + folder + ".png"} alt="">`)
-    })
-}
-
 export function setUnselect() {
-    if (check_verif()){
+    if (check_verif()) {
         return;
     }
     folders.forEach((name) => {
@@ -52,7 +45,7 @@ export function setUnselect() {
 }
 
 export function selectImg(name) {
-    if (check_verif()){
+    if (check_verif()) {
         return;
     }
     const temp = document.querySelector('#btn-' + name)
@@ -74,8 +67,6 @@ export function init() {
             selectPage(name)
         })
     })
-
-    // downloadImages()
     selectImg(current_page)
 }
 

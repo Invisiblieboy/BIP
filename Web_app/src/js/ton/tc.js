@@ -42,7 +42,7 @@ export async function connectWallet() {
     }
 }
 
-export async function disconnetWallet() {
+export async function disconnectWallet() {
     await tonConnectUI.disconnect()
 }
 

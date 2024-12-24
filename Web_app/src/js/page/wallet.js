@@ -12,7 +12,7 @@ export function walletInit() {
         for (let elem of wallet_access_connect) {
             elem.classList.remove('hide')
         }
-        wallet_balance.classList.remove('hide')
+        wallet_balance?.classList.remove('hide')
 
     } else {
         for (let elem of wallet_please_connect) {
@@ -21,7 +21,7 @@ export function walletInit() {
         for (let elem of wallet_access_connect) {
             elem.classList.add('hide')
         }
-        wallet_balance.classList.add('hide')
+        wallet_balance?.classList.add('hide')
     }
 
     updateBIPBalanceHTML()

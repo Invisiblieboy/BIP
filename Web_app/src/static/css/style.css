@@ -38,6 +38,10 @@ body {
     height: --tg-viewport-height;
 }
 
+#page {
+    max-height: 90vh;
+}
+
 .site-link {
     text-decoration: none;
     border-bottom: 0.15rem dashed var(--color-underline);
@@ -60,8 +64,4 @@ body {
 
 .tc-root {
     display: none;
-}
-
-::-webkit-scrollbar {
-    width: 0;
 }

@@ -1,5 +1,5 @@
 import {path_to_folder, payments} from "../utils/utils.js";
-import {page_error_connect_wallet, page_send_to_card_content, page_send_to_crypto_content} from "../utils/templates.js";
+import {page_error_connect_wallet, page_send_to_card_content, page_send_to_crypto_content} from "./templates.js";
 
 export let payments_settings = {can: false, token: undefined, amount: 0}
 

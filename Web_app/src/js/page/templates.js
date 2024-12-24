@@ -1,4 +1,4 @@
-import {path_to_folder} from "./utils.js";
+import {path_to_folder} from "../utils/utils.js";
 
 export const page_info = `
     <div id="info">
@@ -8,13 +8,85 @@ export const page_info = `
         </div>
         <div class="message-cloud mt-4">
             <p class="p-2 text-base text-center m-0"><span class="gold font-bold text-lg link-biptoken site-link">BIP Token</span> - главный канал токена. Там публикуются самые свежие новости о BIP.</p>
-            
             <p class="p-2 text-base text-center m-0"><span class="gold font-bold text-lg link-bipizm site-link">Бипизм</span> - чат для обсуждения любых событий.</p>
         </div>
         <div class="message-cloud mt-4">
             <p class="p-2 text-base text-center m-0"><span class="gold font-bold text-lg link-baltinvestproject site-link">Архитектура и Проектирование</span> - канал, посвященный компании ООО "БИП".</p>
-            
             <p class="p-2 text-base text-center m-0 mt-1"><span class="gold font-bold text-lg link-biplions site-link">Баскетбол | BIP LIONS</span> - наша баскетбольная команда.</p>
+        </div>
+        <div class="message-cloud inline p-2 text-sm" id="faq">
+            <div class="flex">
+                <p class="text-lg">FAQ</p>
+                <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_arrow" alt="">
+            </div>
+            <div class="hide mt-3" id="faq_content">
+                
+                <div class="flex mt-1 mb-1">
+                    <p class="text-lg gold">Как BIPCoin работает?</p>
+                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_how_bip_work_arrow" alt="">
+                </div>
+                <div class="hide ml-4 mt-1" id="faq_how_bip_work_content">
+                    <p>
+                    Количество имеющихся у Вас BIPCoin обеспечивает Вам пропорциональное получение доли прибыли от деятельности <span class="link-baltinvestpro-stats site-link gold">компании</span> по итогам каждого квартала.                    
+                    </p>
+                </div>
+            
+                <div class="flex mt-1 mb-1">
+                    <p class="text-lg gold">Как можно получить BIPCoin?</p>
+                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_get_bip_arrow" alt="">
+                </div>
+                <div class="hide ml-4 mt-1" id="faq_get_bip_content">
+                    <p>
+                         ⁃ Купить одним из доступных <span class="link-tg-how-to-buy site-link gold">способов</span><br>
+                         ⁃ Получить за участие в проводимых нами акциях или конкурсах<br>
+                         ⁃ После листинга купить на бирже<br>
+                         ⁃ Устроится на работу в нашу компанию<br>
+                         ⁃ Следить за нашими <span class="link-biptoken site-link gold">объявлениями и публикациями</span> и, возможно, Вам повезет :)<br>
+                    </p>
+                </div>
+            
+                <div class="flex mt-1 mb-1">
+                    <p class="text-lg gold">Как понять, сколько заплатят?</p>
+                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_how_much_pay_arrow" alt="">
+                </div>
+                <div class="hide ml-4 mt-1" id="faq_how_much_pay_content">
+                    <p>
+                    Предположим, что чистая выручка компании, после уплаты всех налогов и сборов, составила 100 000 USD. Всего создано 1 млн BIPCoin, значит выплата на каждую монету составит 0,1 USDT.<br>
+                    Если у Вас, например, 10 000 монет, то поступление на ваш кошелек составит 1000 USDT.<br>
+                    Расчеты:  выручка компании / количество BIPCoin (1,000,000шт) * количество BIPCoin у вас = Ваша прибыль
+                    </p>
+                </div>
+                
+                <div class="flex mt-1 mb-1">
+                    <p class="text-lg gold">Зачем мы это делаем?</p>
+                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_why_we_work_arrow" alt="">
+                </div>
+                <div class="hide ml-4 mt-1" id="faq_why_we_work_content">
+                    <p>
+                    Для дальнейшего роста и расширения <span class="link-baltinvestpro-stats site-link gold">компании</span> нам необходимо привлечение средств. В связи с крайне высокой ставкой рефинансирования, стандартные банковские инструменты становятся неактуальны, и мы решили привлечь средства частных инвесторов.
+                    </p>
+                </div>
+                
+                <div class="flex mt-1 mb-1">
+                    <p class="text-lg gold">Различные детали</p>
+                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_details_arrow" alt="">
+                </div>
+                <div class="hide ml-4 mt-1" id="faq_details_content">
+                    <p>
+                     Экономические данные по деятельности компании публикуются налоговыми органами и легко находятся в сети.<br>
+                     Однако, данные, отображаемые в налоговой декларации (а именно чистая прибыль компании), не учитывают:<br>
+                      - затраты на перевод денежных средств в цифровые валюты<br>
+                      - налоговые отчисления при выводе прибыли со счета компании<br>
+                      - затраты на транзакции при переводах на кошельки<br>
+                      - возможные изменения в законодательстве и некоторые другие расходы.<br>
+                      <br>
+                      Бухгалтерские данные рассчитываются до конца месяца, следующего за отчетным!<br>
+                      То есть, данные за первый квартал (январь, февраль, март) определяются до конца апреля, а выплаты будут производиться в мае, так как требуется время на обработку данных по кошелькам и перевод денежных средств в цифровую валюту.<br>
+                      В аналогичном порядке начисления за второй квартал (апрель, май, июнь), будут перечислены в августе и так далее.
+                     </p>
+                </div>
+                
+            </div>
         </div>
     </div>
     `
@@ -27,9 +99,9 @@ export const page_wallet = `
             </p>
         </div>
         <div class="flex mt-4">
-            <div class="message-cloud p-4 wallet_access_connect flex">
+            <div class="message-cloud p-4 wallet_access_connect flex hide">
                 <p class="green text-lg">Привязан</p>
-                <img class="size-6 wallet-disconnect" src="${path_to_folder}normal/delete_red.png" alt="">
+                <img class="size-6 btn_wallet_disconnect" src="${path_to_folder}normal/delete_red.png" alt="">
             </div>
             <div class="message-cloud wallet_please_connect p-4">
                 <p class="btn_wallet_connect site-link gold text-lg" >Подключить кошелек</p>
@@ -41,8 +113,7 @@ export const page_wallet = `
                 <p class="inline">Цена BIPCoin - <span id="BIP_price" class="gold">0</span>$</p>
             </div>
         </div>
-        
-        <div class="mt-4 wallet_access_connect" id="wallet_balance">
+        <div class="mt-4 wallet_access_connect hide" id="wallet_balance">
           
             <div class="message-cloud p-4 ">
                 <p class="text-2xl">Баланс</p>

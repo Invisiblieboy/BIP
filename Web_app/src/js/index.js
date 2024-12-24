@@ -1,10 +1,11 @@
-import {page_bank, page_cart, page_error_tg, page_info, page_wallet} from './utils/templates.js'
+import {page_bank, page_cart, page_error_tg, page_info, page_wallet} from './page/templates.js'
 import {current_page, init as navInit, selectImg, setCurrentPage, setUnselect} from "./page/nav-bar.js";
-import {preInit, utilsInit} from "./utils/utils.js";
-import {check_verif, init as tgInit} from "./utils/tgUtils.js";
+import {parse_url, utilsInit} from "./utils/utils.js";
+import {check_verif} from "./utils/tgUtils.js";
 import {cartInit} from "./page/cart.js";
 import {walletInit} from "./page/wallet.js";
-import {swipeInit} from "./utils/swipe.js";
+import {linksInit} from "./utils/links_handler.js";
+import {infoInit} from "./page/info.js";
 
 const $page = document.querySelector('#page')
 
@@ -18,9 +19,10 @@ export function selectPage(page) {
     }
 }
 
-function refreshPage() {
+export function refreshPage() {
     if (current_page === 'info') {
         $page.innerHTML = page_info
+        infoInit()
     } else if (current_page === 'wallet') {
         $page.innerHTML = page_wallet
         walletInit()
@@ -35,14 +37,13 @@ function refreshPage() {
 }
 
 async function main() {
-    await preInit()
+    parse_url()
+    await linksInit()
     if (!check_verif()) {
-        utilsInit()
+        await utilsInit()
         navInit()
 
         refreshPage()
-        tgInit()
-        swipeInit()
     }
 }
 
