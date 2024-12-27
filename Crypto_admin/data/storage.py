@@ -1,4 +1,6 @@
 import asyncio
+import json
+import time
 
 import redis.asyncio as redis
 
@@ -21,6 +23,41 @@ class Storage:
     async def clear(self):
         for key in client.keys(f'{self.base_key}*'):
             await client.delete(key)
+
+
+class StorageWallet:
+    def __init__(self, base_path):
+        self.base_path = base_path
+        self.base_path += 'wallets/'
+
+        self.wallets_json = {}
+        self.get_wallet(from_file=True)
+
+    def get_wallet(self, address: str = '', from_file=False):
+        if from_file:
+            try:
+                with open(self.base_path + 'wallets.json', 'r') as file:
+                    self.wallets_json = json.load(file)
+            except FileNotFoundError:
+                self.wallets_json = {}
+                with open(self.base_path + 'wallets.json', 'w') as file:
+                    json.dump({}, file)
+
+        if address:
+            return self.wallets_json.get(address)
+        return self.wallets_json
+
+    def set_wallet(self, address: str, mnemonics: list[str], is_testnet: bool = False, version: str = ''):
+        self.wallets_json[address] = {'address': address, 'mnemonics': mnemonics, 'is_testnet': is_testnet,
+                                      version: version}
+
+    def save_wallets(self):
+        with open(self.base_path + 'wallets.json', 'r') as file:
+            with open(self.base_path + f'wallets_backup_{time.time()}.json', 'w') as file_backup:
+                json.dump(json.load(file), file_backup, indent=2)
+
+        with open(self.base_path + 'wallets.json', 'w') as file:
+            json.dump(self.wallets_json, file, indent=2)
 
 
 storage = Storage()
