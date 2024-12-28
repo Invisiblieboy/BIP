@@ -1,20 +1,27 @@
 from tonutils.client import TonapiClient
-from tonutils.wallet import WalletV4R2
+from tonutils.wallet import HighloadWalletV3
+from tonutils.wallet.data import TransferJettonData
 
-from data.config import TONCENTER_API_KEY,SENDER_SEED_PHRASE,BIP_JETTON_MASTER_ADDRESS
+from data.config import TONCENTER_API_KEY, SENDER_SEED_PHRASE, BIP_JETTON_MASTER_ADDRESS
 
 
 class Seller:
     def __init__(self):
         self._client = TonapiClient(api_key=TONCENTER_API_KEY, is_testnet=False)
-        self.__wallet_V4R2, public_key, private_key, mnemonic = WalletV4R2.from_mnemonic(self._client,
-                                                                                         SENDER_SEED_PHRASE.split(' '))
+        self.__wallet_H3, public_key, private_key, mnemonic = HighloadWalletV3.from_mnemonic(self._client,
+                                                                                             SENDER_SEED_PHRASE.split(
+                                                                                                 ' '))
 
-    async def sendBIPSingle(self, destination_address, jetton_amount, comment=None):
-        await self.__wallet_V4R2.transfer_jetton(
-            destination=destination_address,
-            jetton_master_address=BIP_JETTON_MASTER_ADDRESS,
-            jetton_amount=jetton_amount,
-            jetton_decimals=9,
-            forward_payload=comment,
-        )
+    async def sendBIP(self, data_list: list[tuple[str, float, str]]) -> str:
+        # (ADDRESS, AMOUNT, COMMENT)
+        transactions = []
+        for trans in data_list:
+            transactions.append(
+                TransferJettonData(
+                    destination=trans[0],
+                    jetton_master_address=BIP_JETTON_MASTER_ADDRESS,
+                    jetton_amount=trans[1],
+                    forward_payload=trans[2],
+                )
+            )
+        return await self.__wallet_H3.batch_jetton_transfer(data_list=transactions)

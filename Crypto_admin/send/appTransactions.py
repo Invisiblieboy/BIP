@@ -1,10 +1,10 @@
-import aiohttp
+import asyncio
 
+import aiohttp
 from data.config import RECEIVE_ADDRESS, TESTER_ADDRESS, USDT_JETTON_MASTER_ADDRESS, MIN_TON_BUY_LIMIT, \
     MIN_USDT_BUY_LIMIT, PRICE_TAX
 from data.storage import storage
 from send.Send import Seller
-import asyncio
 
 
 async def __actionParse(action: dict, tokens_white_list: list) -> dict:
@@ -67,7 +67,7 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
                                 amount_bip = await calcBIPCount(reply['amount'], reply['token'],
                                                                 price_correct=PRICE_TAX)
                                 message = f'Спасибо за покупку BIP на {reply['amount']} {reply['token']}'
-                                await Seller().sendBIPSingle(reply['sender'], amount_bip, message)
+                                await Seller().sendBIP([(reply['sender'], amount_bip, message)])
 
     await storage.set_item('last_transaction_timestamp', last_transaction_timestamp)
     await storage.set_item('processed_transactions', processed_transactions_str)
@@ -82,10 +82,3 @@ async def autoHandlingNuwBuys(sleep=1):
     while 1:
         await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
         await asyncio.sleep(sleep)
-
-async def main():
-    print(await storage.get_item('processed_transactions'))
-
-
-if __name__ == '__main__':
-    asyncio.run(main())

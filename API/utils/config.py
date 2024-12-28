@@ -21,7 +21,7 @@ token_url_list = {
     'TON': TON_PRICE_URL
 }
 
-to_buy_wallet = 'UQDvQBGJe8GtwSPGeqBUjupvVevW45VQA__zIF1AWfWOwS_K'
+to_buy_wallet = 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW'
 to_buy_card = '5280413755386435'
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
