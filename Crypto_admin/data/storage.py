@@ -21,12 +21,12 @@ class Storage:
         await client.delete(self.base_key + key)
 
     async def clear(self):
-        for key in client.keys(f'{self.base_key}*'):
+        for key in await client.keys(f'{self.base_key}*'):
             await client.delete(key)
 
 
 class StorageWallet:
-    def __init__(self, base_path):
+    def __init__(self, base_path=''):
         self.base_path = base_path
         self.base_path += 'wallets/'
 
@@ -49,7 +49,7 @@ class StorageWallet:
 
     def set_wallet(self, address: str, mnemonics: list[str], is_testnet: bool = False, version: str = ''):
         self.wallets_json[address] = {'address': address, 'mnemonics': mnemonics, 'is_testnet': is_testnet,
-                                      version: version}
+                                      'version': version}
 
     def save_wallets(self):
         with open(self.base_path + 'wallets.json', 'r') as file:
