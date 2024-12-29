@@ -5,8 +5,11 @@ from send import appTransactions
 
 
 async def main():
-    await appTransactions.autoHandlingNuwBuys(1)
-    await tg_bot.main()
+    task1 = asyncio.create_task(appTransactions.autoHandlingNuwBuys(1))
+    task2 = asyncio.create_task(tg_bot.main())
+
+    await task1
+    await task2
 
 
 if __name__ == '__main__':
