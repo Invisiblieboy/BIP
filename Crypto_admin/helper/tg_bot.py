@@ -4,7 +4,6 @@ import logging
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
-
 from data.config import BOT_TOKEN, PRICE_TAX
 from data.storage import storage
 from send.seller import Seller
@@ -42,7 +41,7 @@ async def send(message: types.Message):
             uwallet, amount_bip, comment = trans
             if uwallet and amount_bip and comment:
                 tri = await Seller().sendBIP([(uwallet, amount_bip, comment)])
-                await message.answer(f'Success tri: {tri}')
+                await message.answer(f'Success tri: `{tri}`')
             else:
                 await message.answer(f'Error\n`{uwallet}`\n`{amount_bip}`\n`{comment}`', parse_mode="MARKDOWN")
             del transactions[admin_uname]
@@ -92,7 +91,6 @@ async def send(message: types.Message):
 
         if not comment:
             comment = f'Спасибо за покупку BIP на {amount} рублей'
-        print(comment)
 
         await message.answer(
             f'USER ID - @{username}\n\nAMOUNT - `{amount_bip}` BIP\n\nADDRESS - `{uwallet}`\n\nMESSAGE - `{comment}`'
