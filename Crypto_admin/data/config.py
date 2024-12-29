@@ -15,3 +15,4 @@ PRICE_TAX = 1.05
 load_dotenv()
 TONCENTER_API_KEY = os.getenv('TONCENTER_API_KEY')
 SENDER_SEED_PHRASE = os.getenv('SENDER_SEED_PHRASE')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
