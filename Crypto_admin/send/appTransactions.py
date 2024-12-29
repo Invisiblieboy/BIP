@@ -4,7 +4,7 @@ import aiohttp
 from data.config import RECEIVE_ADDRESS, TESTER_ADDRESS, USDT_JETTON_MASTER_ADDRESS, MIN_TON_BUY_LIMIT, \
     MIN_USDT_BUY_LIMIT, PRICE_TAX
 from data.storage import storage
-from send.Send import Seller
+from send.seller import Seller
 
 
 async def __actionParse(action: dict, tokens_white_list: list) -> dict:
