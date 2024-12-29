@@ -71,7 +71,6 @@ async def send(message: types.Message):
             await message.answer(f'Message must be\n/send uid RUB_amount probably_comment')
             return
         comment = ' '.join(msg[3:])
-        print(msg[3:])
         _, uid, amount = msg[:3]
 
         id2wallet: dict = json.loads(await storage.get_item('id2wallet'))
