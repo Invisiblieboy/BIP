@@ -111,9 +111,6 @@ async def main():
     white_list = white_list.split('|')
     await dp.start_polling(bot)
 
-async def main():
-    print(await storage.get_item('id2wallet'))
-
 
 if __name__ == '__main__':
     asyncio.run(main())
