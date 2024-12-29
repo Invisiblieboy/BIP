@@ -82,7 +82,7 @@ async def send(message: types.Message):
         id2user: dict = json.loads(await storage.get_item('id2user'))
         user = id2user.get(uid)
         if user:
-            username = user['username']
+            username = user.get('username')
         else:
             username = None
 
@@ -110,6 +110,9 @@ async def main():
     white_list = await storage.get_item('tg_payment_admins')
     white_list = white_list.split('|')
     await dp.start_polling(bot)
+
+async def main():
+    print(await storage.get_item('id2wallet'))
 
 
 if __name__ == '__main__':
