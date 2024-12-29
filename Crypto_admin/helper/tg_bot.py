@@ -4,6 +4,7 @@ import logging
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
+
 from data.config import BOT_TOKEN, PRICE_TAX
 from data.storage import storage
 from send.seller import Seller
@@ -43,7 +44,7 @@ async def send(message: types.Message):
                 tri = await Seller().sendBIP([(uwallet, amount_bip, comment)])
                 await message.answer(f'Success tri: {tri}')
             else:
-                await message.answer(f'Error\n`{uwallet}`\n`{amount_bip}`\n{comment}', parse_mode="MARKDOWN")
+                await message.answer(f'Error\n`{uwallet}`\n`{amount_bip}`\n`{comment}`', parse_mode="MARKDOWN")
             del transactions[admin_uname]
         else:
             await message.answer(f'transaction not exist')
@@ -56,7 +57,7 @@ async def send(message: types.Message):
         trans = transactions.get(admin_uname)
         if trans:
             uwallet, amount_bip, comment = trans
-            await message.answer(f'Cancel\n`{uwallet}`\n`{amount_bip}`\n{comment}', parse_mode="MARKDOWN")
+            await message.answer(f'Cancel\n`{uwallet}`\n`{amount_bip}`\n`{comment}`', parse_mode="MARKDOWN")
             del transactions[admin_uname]
         else:
             await message.answer(f'transaction not exist')
@@ -67,14 +68,12 @@ async def send(message: types.Message):
     admin_uname = message.from_user.username
     if admin_uname in white_list:
         msg = message.text.split(' ')
-        if len(msg) not in [3, 4]:
+        if len(msg) < 3:
             await message.answer(f'Message must be\n/send uid RUB_amount probably_comment')
             return
-        if len(msg) == 4:
-            comment = msg.pop(-1)
-        else:
-            comment = None
-        _, uid, amount = msg
+        comment = ' '.join(msg[3:])
+        print(msg[3:])
+        _, uid, amount = msg[:3]
 
         id2wallet: dict = json.loads(await storage.get_item('id2wallet'))
         uwallet = id2wallet.get(uid)
@@ -93,9 +92,10 @@ async def send(message: types.Message):
 
         if not comment:
             comment = f'Спасибо за покупку BIP на {amount} рублей'
+        print(comment)
 
         await message.answer(
-            f'USER ID - @{username}\n\nAMOUNT - `{amount_bip}` BIP\n\nADDRESS - `{uwallet}`\n\nMESSAGE - {comment}'
+            f'USER ID - @{username}\n\nAMOUNT - `{amount_bip}` BIP\n\nADDRESS - `{uwallet}`\n\nMESSAGE - `{comment}`'
             f'\n\nplease enter /deny or /approve', parse_mode="MARKDOWN")
         transactions[admin_uname] = (uwallet, amount_bip, comment)
 
