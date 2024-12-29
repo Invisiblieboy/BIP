@@ -73,11 +73,6 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
     await storage.set_item('processed_transactions', processed_transactions_str)
 
 
-def _start(sleep=1):
-    import asyncio
-    asyncio.run(autoHandlingNuwBuys(sleep))
-
-
 async def autoHandlingNuwBuys(sleep=1):
     while 1:
         await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
