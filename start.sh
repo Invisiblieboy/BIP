@@ -3,11 +3,9 @@ nginx -s reload
 
 killall python uvicorn
 
-python /usr/dev/BIP/Tg_bot/tg_bot.py &
+cd /usr/dev/BIP
+python main.py &
 
 cd /usr/dev/BIP/API
-python main.py &
 uvicorn main:app --port 8000 --no-access-log &
 
-cd /usr/dev/BIP/Crypto_admin
-python main.py &

@@ -14,8 +14,13 @@ def root():
 
 app.include_router(v1.v1_router)
 
+
+async def main():
+    await v1.init()
+
+
 if __name__ == '__main__':
-    asyncio.run(v1.init())
+    asyncio.run(main())
 
 # uvicorn --reload --port 8000 main:app
 # --break-system-packages
