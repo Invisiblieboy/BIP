@@ -37,10 +37,10 @@ export function updateBIPBalanceHTML() {
     let USDT_balance = localStorage.getItem('USDT_balance')
     const USDT_balance_elem = document.getElementById('USDT_balance')
     if (BIP_balance_elem) {
-        BIP_balance_elem.innerHTML = Math.round(BIP_balance * 100) / 100
-        TON_balance_elem.innerHTML = Math.round(TON_balance * 100) / 100
-        USDT_balance_elem.innerHTML = Math.round(USDT_balance * 100) / 100
-        BIP_price_elem.innerHTML = Math.round(BIP_price * 10000) / 10000
+        BIP_balance_elem.innerHTML = Math.floor(BIP_balance * 100) / 100
+        TON_balance_elem.innerHTML = Math.floor(TON_balance * 100) / 100
+        USDT_balance_elem.innerHTML = Math.floor(USDT_balance * 100) / 100
+        BIP_price_elem.innerHTML = Math.floor(BIP_price * 10000) / 10000
 
     }
 }
