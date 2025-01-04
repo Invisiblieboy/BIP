@@ -2,8 +2,6 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv()
-
 MANIFEST_URL = 'https://app.biptoken.xyz/static/json/MANIFEST.json'
 
 token_addr = "EQBvx2BnUv_rrXL3Mua-nOC2kBp8GD6lW7fRqFmLkAzzvaMY"
@@ -24,4 +22,5 @@ token_url_list = {
 to_buy_wallet = 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW'
 to_buy_card = '5280413755386435'
 
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 BOT_TOKEN = os.getenv('BOT_TOKEN')

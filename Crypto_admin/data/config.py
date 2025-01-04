@@ -12,7 +12,7 @@ MIN_TON_BUY_LIMIT = 0.1
 MIN_USDT_BUY_LIMIT = 0.5
 PRICE_TAX = 1.05
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 TONCENTER_API_KEY = os.getenv('TONCENTER_API_KEY')
 SENDER_SEED_PHRASE = os.getenv('SENDER_SEED_PHRASE')
 BOT_TOKEN = os.getenv('BOT_TOKEN')

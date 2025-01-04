@@ -1,7 +1,6 @@
 import os
 
 from dotenv import load_dotenv
-load_dotenv()
 
 APP_URL = 'https://app.biptoken.xyz'
 
@@ -19,6 +18,7 @@ urls = [
     't.me/BIPapp_bot/BIP_app'
 ]
 
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 ADMIN_ID = os.getenv('ADMIN_ID')
 TONAPI_TOKEN = os.getenv('TONAPI_TOKEN')
