@@ -4,7 +4,7 @@ nginx -s reload
 killall python uvicorn
 
 cd /usr/dev/BIP
-python main.py &
+python -m main &
 
 cd /usr/dev/BIP/API
 uvicorn main:app --port 8000 --no-access-log &
