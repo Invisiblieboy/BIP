@@ -22,5 +22,5 @@ token_url_list = {
 to_buy_wallet = 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW'
 to_buy_card = '5280413755386435'
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
