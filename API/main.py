@@ -1,8 +1,13 @@
 import asyncio
+import os
+import sys
 
 from fastapi import FastAPI
 
 import v1
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(dir_path)
 
 app = FastAPI()
 

@@ -16,7 +16,7 @@ def CollectionMetadata():
 
 
 @app.get("/CreateItemMetadata")
-def CreateItemMetadata(value: int):
+def CreateItemMetadata(value: int = 0):
     image = "https://nft.biptoken.xyz/defaultNFT.png"
     if 100 <= value < 1000:
         image = "https://nft.biptoken.xyz/100NFT.png"
@@ -37,6 +37,7 @@ def CreateItemMetadata(value: int):
         ]
     }
 
+# uvicorn --reload --port 8000 main:app
 # uvicorn --reload --port 8000 main:app
 # --break-system-packages
 
