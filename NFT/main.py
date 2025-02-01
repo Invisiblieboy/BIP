@@ -16,7 +16,7 @@ def CollectionMetadata():
 
 
 @app.get("/CreateItemMetadata")
-def CreateItemMetadata(value: int = 0):
+def CreateItemMetadata(value: float = 0):
     image = "https://nft.biptoken.xyz/defaultNFT.png"
     if 100 <= value < 1000:
         image = "https://nft.biptoken.xyz/100NFT.png"
