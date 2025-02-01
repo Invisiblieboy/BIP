@@ -25,8 +25,16 @@ def CreateItemMetadata(value: float = 0):
     elif 10000 <= value:
         image = "https://nft.biptoken.xyz/10000NFT.png"
 
+    if value % 1 == 0:
+        value: int = int(value)
+
+    name_value = int(value)
+    name_str = f"{value} BIP NFT"
+    if name_value == 0:
+        name_str = "BIP NFT"
+
     return {
-        "name": f"{value} BIP NFT",
+        "name": name_str,
         "description": f"You can swap this NFT to {value} BIPCoins",
         "image": image,
         "attributes": [
@@ -37,7 +45,6 @@ def CreateItemMetadata(value: float = 0):
         ]
     }
 
-# uvicorn --reload --port 8000 main:app
 # uvicorn --reload --port 8000 main:app
 # --break-system-packages
 
