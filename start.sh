@@ -1,4 +1,4 @@
-cp /usr/dev/BIP/Web_app/nginx.conf /etc/nginx/nginx.conf;
+cp /usr/dev/BIP/nginx.conf /etc/nginx/nginx.conf;
 nginx -s reload
 
 killall python uvicorn
@@ -12,4 +12,7 @@ python -m tg_bot &
 
 cd /usr/dev/BIP/API
 uvicorn main:app --port 8000 --no-access-log &
+
+cd /usr/dev/BIP/NFT
+uvicorn main:app --port 8100 --no-access-log &
 
