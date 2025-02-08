@@ -10,10 +10,12 @@ export function preloadImages() {
 
         normal_folder.forEach(img => {
             const node = new window.Image();
+            node.loading = "lazy"
             node.src = `${path_to_folder}normal/${img}.png`;
         });
         select_folder.forEach(img => {
             const node = new window.Image();
+            node.loading = "lazy"
             node.src = `${path_to_folder}select/${img}.png`;
         })
     }
