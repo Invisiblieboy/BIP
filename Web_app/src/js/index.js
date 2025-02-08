@@ -33,6 +33,7 @@ export function refreshPage() {
         $page.innerHTML = page_bank
     } else if (current_page === 'error_tg') {
         $page.innerHTML = page_info + page_error_tg
+        infoInit()
     }
 }
 
