@@ -179,6 +179,11 @@ export const page_bank = `
                 <p class="site-link-lite inline link-how-create-tk">- Криптовалютный кошелек.</p><br>
             </div>
         </div>
+        <div class="text-base message-cloud mt-4">
+            <div class="p-4 pt-2 gold">
+                <p class="text-2xl site-link-lite inline link-how-sell-rub">Как продать BIPCoin</p><br>
+            </div>
+        </div>
     </div>`
 
 export const page_error_tg =`

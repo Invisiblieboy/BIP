@@ -30,6 +30,9 @@ export async function linksInit() {
         if (e.target?.className.includes("link-how-buy-rub")) {
             window.open("https://telegra.ph/Kak-kupit-BIP-imeya-RUB-12-04", "_blank")
         }
+        if (e.target?.className.includes("link-how-sell-rub")) {
+            window.open("https://telegra.ph/Kak-prodat-BIPCoin-02-08", "_blank")
+        }
         if (e.target?.className.includes("link-how-create-tk")) {
             window.open("https://telegra.ph/Kak-sozdat-svoj-koshelek-Tonkeeper-12-16", "_blank")
         }
