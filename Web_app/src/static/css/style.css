@@ -36,6 +36,8 @@ body {
     background-size: min(80vh, 100vw);
     background-attachment: fixed;
     height: --tg-viewport-height;
+
+    scrollbar-color: rgba(0,0,0,0) rgba(0,0,0,0)
 }
 
 #page {
@@ -64,4 +66,28 @@ body {
 
 .tc-root {
     display: none;
+}
+
+.input_number{
+    border: 1px solid var(--color-underline);
+    color: var(--white);
+    border-radius: 5px;
+    outline: none;
+    height: 1.5rem;
+    width: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: rgba(0, 0, 0, 0%);
+    text-align: center;
+}
+.input_btn{
+    border: 1px solid var(--color-underline);
+    border-radius: 5px;
+    outline: none;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    text-align: center;
+    background-color: var(--bg-grey);
+    color: gold;
+    height: 2rem;
 }
