@@ -19,8 +19,12 @@ token_url_list = {
     'TON': TON_PRICE_URL
 }
 
-to_buy_wallet = 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW'
-to_buy_card = '5280413755386435'
+payments = {
+    "card": '5280413755386435',
+    "wallet": 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW',
+    "buy_wallet": 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW',
+    "nft_wallet": 'EQCZcWjX_G7YuTzgk7lG72fsNsNLVJQrcVc0ijJkz1p9nVna',
+}
 
 load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
