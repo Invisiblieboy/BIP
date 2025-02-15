@@ -3,6 +3,7 @@ import {selectImg, setUnselect} from "../page/nav-bar.js";
 import {connectWallet, disconnectWallet} from "../ton/tc.js";
 import {payments_settings} from "../page/cart.js";
 import {sendTransaction} from "../ton/ton.js";
+import {nft_payment_settings} from "../page/wallet.js";
 
 export async function buttonsInit() {
     document.addEventListener("click", async function (e) {
@@ -18,12 +19,20 @@ export async function buttonsInit() {
             await disconnectWallet()
         }
         if (e.target?.id === "btn_send_transaction") {
-            let message = crypto.randomUUID().replaceAll('-', '')
             if (payments_settings.can) {
-                if (await sendTransaction(payments_settings.token, payments_settings.amount, message)) {
+                if (await sendTransaction(payments_settings.token, payments_settings.amount)) {
                     document.getElementById('btn_send_transaction').value = 'Транзакция обрабатывается'
                 } else {
                     document.getElementById('btn_send_transaction').value = 'Ошибка при отправке транзакции'
+                }
+            }
+        }
+        if (e.target?.id === "btn_send_transaction_to_nft") {
+            if (nft_payment_settings.can) {
+                if (await sendTransaction("BIP", nft_payment_settings.amount)) {
+                    document.getElementById('btn_send_transaction_to_nft').value = 'Транзакция обрабатывается'
+                } else {
+                    document.getElementById('btn_send_transaction_to_nft').value = 'Ошибка при отправке транзакции'
                 }
             }
         }

@@ -94,8 +94,8 @@ export const page_info = `
 export const page_wallet = `
     <div id="wallet">
         <div class="message-cloud p-4">
-            <p class="text-center mt-1 gold font-bold text-3xl m-0">
-                Кошелек
+            <p class="text-3xl gold font-bold text-center m-0">
+            Кошелек
             </p>
         </div>
         <div class="flex mt-4">
@@ -114,12 +114,20 @@ export const page_wallet = `
             </div>
         </div>
         <div class="mt-4 wallet_access_connect hide" id="wallet_balance">
-          
-            <div class="message-cloud p-4 ">
+            <div class="message-cloud p-4">
                 <p class="text-2xl">Баланс</p>
                 <p class="text-lg"><span id="BIP_balance" class="gold">NONE</span> BIPCoin</p>
                 <p class="text-lg"><span id="TON_balance" class="gold">NONE</span> TON</p>
                 <p class="text-lg"><span id="USDT_balance" class="gold">NONE</span> USDT</p>
+            </div>
+            <div class="message-cloud p-4 hide" id="nft_changer">
+                <p class="text-2xl">Конвертация BIPCoin в NFT</p>
+                <div class="flex mt-4 ml-2">
+                    <input class="input_number h-2" id="BIP_input_count" placeholder="0" type="text">
+                    <input type="button" class="input_btn opacity-2 ml-2 h-2" id="btn_send_transaction_to_nft" value="Введите значение больше нуля">
+                    <img src="" class="img-border hide" id="nft_preshow_img" alt="nft image">
+                </div>
+                
             </div>
         </div>
     </div>

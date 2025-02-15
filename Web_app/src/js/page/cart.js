@@ -65,7 +65,7 @@ function pageSendToCryptoInit() {
     });
 }
 
-function updateCoinInputAndValueHtml(value, coin) {
+export function updateCoinInputAndValueHtml(value, coin) {
     coin = coin.toUpperCase()
     let btn_send_transaction = document.getElementById('btn_send_transaction');
     localStorage.setItem(`${coin}_input_count`, '0')
@@ -106,7 +106,9 @@ function updateCoinInputAndValueHtml(value, coin) {
             }
         }
     }
-    document.getElementById(`${coin}_value`).innerHTML = html
+    try{
+        document.getElementById(`${coin}_value`).innerHTML = html
+    } catch (e){}
     calcInputWidth(value, coin)
 }
 
@@ -144,7 +146,7 @@ function pageSendToCardInit() {
     try {
         initData = window.Telegram.WebApp.initDataUnsafe.user.id
     } catch (e) {
-        initData = 1010101010
+        initData = 'UserID'
     }
     code.innerHTML = initData
     const admin_card_number_elem = document.getElementById('admin_card_number')

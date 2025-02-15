@@ -1,4 +1,4 @@
-import {creteArrowListener} from "../utils/utils.js";
+import {creteArrowListener} from "../utils/pattern.js";
 
 
 export function infoInit() {
