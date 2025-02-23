@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 MANIFEST_URL = 'https://app.biptoken.xyz/static/json/MANIFEST.json'
 
-token_addr = "EQBvx2BnUv_rrXL3Mua-nOC2kBp8GD6lW7fRqFmLkAzzvaMY"
-pool_addr = "EQDnOa7YLAPO8TJxaJ463F30DJckF-dxvylxsSpitNGhiBJ9"
+token_addr = "EQB4bnS7oHHVfHUAS7Qb-Xjqc-ALA_Pz-_K3PqBCb5fW6XIP"
+pool_addr = "EQCJWbehGyHtkgw6IMzcY1VPAJwre1sWWGvqKYm1_h0CpsJe"
 url_base = "https://api.geckoterminal.com/api/v2/"
 url_token_info = "networks/ton/pools/"
 
@@ -21,9 +21,9 @@ token_url_list = {
 
 payments = {
     "card": '5280413755386435',
-    "wallet": 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW',
-    "buy_wallet": 'EQCzP3KIPzbIjyqlkqASFCZFVKRjb7flmRbluM_2qFwmWplW',
-    "nft_wallet": 'EQCZcWjX_G7YuTzgk7lG72fsNsNLVJQrcVc0ijJkz1p9nVna',
+    "wallet": 'UQAlYNS0neZkR-rCxKJAVALuc2Ni_QiHyjrEqjg18yaNjjg6',
+    "buy_wallet": 'UQAlYNS0neZkR-rCxKJAVALuc2Ni_QiHyjrEqjg18yaNjjg6',
+    "nft_wallet": 'EQB5pj8eAdP7bfRqEaI7jZEE1V8ZPtfjqleFAG_AXnHnHXs0',
 }
 
 load_dotenv()
