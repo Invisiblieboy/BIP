@@ -10,7 +10,7 @@ url_base = "https://api.geckoterminal.com/api/v2/"
 url_token_info = "networks/ton/pools/"
 
 RUB_PRICE_URL = 'https://www.cbr-xml-daily.ru/daily_json.js'
-BIP_PRICE_URL = 'https://api.geckoterminal.com/api/v2/networks/ton/pools/EQDnOa7YLAPO8TJxaJ463F30DJckF-dxvylxsSpitNGhiBJ9'
+BIP_PRICE_URL = f'https://api.geckoterminal.com/api/v2/networks/ton/pools/{pool_addr}'
 TON_PRICE_URL = 'https://api.coingecko.com/api/v3/coins/the-open-network'
 
 token_url_list = {
