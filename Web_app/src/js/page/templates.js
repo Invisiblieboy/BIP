@@ -120,12 +120,27 @@ export const page_wallet = `
                 <p class="text-lg"><span id="TON_balance" class="gold">NONE</span> TON</p>
                 <p class="text-lg"><span id="USDT_balance" class="gold">NONE</span> USDT</p>
             </div>
-            <div class="message-cloud p-4 hide" id="nft_changer">
-                <p class="text-2xl">Конвертация BIPCoin в NFT</p>
-                <div class="flex mt-4 ml-2">
-                    <input class="input_number h-2" id="BIP_input_count" placeholder="0" type="text">
-                    <input type="button" class="input_btn opacity-2 ml-2 h-2" id="btn_send_transaction_to_nft" value="Введите значение больше нуля">
-                    <img src="" class="img-border hide" id="nft_preshow_img" alt="nft image">
+            <div class="hide mt-4" id="nft_changer">
+                <div id="BIP2NFT" class="message-cloud p-4 ">    
+                    <p class="text-2xl">Конвертация BIPCoin в NFT</p>
+                    <div class="flex ml-2">
+                        <div class="mt-4" id="wallet_nft_items">
+                            <div class="flex">
+                                <input class="input_number" id="BIP_input_count" placeholder="0" type="text">
+                                <p class="text-lg ml-2">BIPCoin</p>
+                            </div>
+                            <input type="button" class="input_btn opacity-2 mt-1" id="btn_send_transaction_to_nft" value="Введите значение больше нуля">
+                        </div>
+                        <img src="" class="img-border r-0 hide" id="nft_preshow_img" alt="nft image">
+                    </div>
+                </div>
+                <div id="NFT2BIP" class="message-cloud p-4 ">    
+                    <div id="wallet_nft" class="hide">
+                        <p class="text-2xl">Конвертация NFT в BIPCoin</p>
+                        <div class="ml-2 mt-2" id="wallet_nft_list">
+                        
+                        </div>
+                    </div>
                 </div>
                 
             </div>

@@ -3,7 +3,7 @@ import {path_to_folder} from "../utils/utils.js";
 import {check_verif} from "../utils/tgUtils.js";
 
 export let folders = ['info', 'wallet', 'cart', 'bank']
-export let current_page = "info"
+export let current_page = "wallet"
 
 
 export function selectRight() {

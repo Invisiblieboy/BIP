@@ -4,6 +4,7 @@ import {connectWallet, disconnectWallet} from "../ton/tc.js";
 import {payments_settings} from "../page/cart.js";
 import {sendTransaction} from "../ton/ton.js";
 import {nft_payment_settings} from "../page/wallet.js";
+import {BIP_NFTs} from "./utils.js";
 
 export async function buttonsInit() {
     document.addEventListener("click", async function (e) {
@@ -47,6 +48,13 @@ export async function buttonsInit() {
             elem.classList.add('anim')
             setTimeout(() => elem.classList.remove('anim'), 1000)
             await navigator.clipboard.writeText(elem.innerHTML)
+        }
+        if (e.target?.classList.toString().split(' ').indexOf("BIP_NFT_sale_button")!==-1) {
+            BIP_NFTs.forEach((nft)=>{
+                if(nft.index.toString()===e.target.id.split('_')[1]){
+                    console.log(nft.address)
+                }
+            })
         }
     })
 }
