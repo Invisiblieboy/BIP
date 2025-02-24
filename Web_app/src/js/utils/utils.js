@@ -1,4 +1,4 @@
-import {updateBIPBalanceHTML, updateBIPNFTSector} from "../page/wallet.js";
+import {updateBIPBalanceHTML, updateBIPChangerHTML} from "../page/wallet.js";
 import {preloadImages} from "./download_img.js";
 import {init as tgInit} from "./tgUtils.js";
 import {swipeInit} from "../page/swipe.js";
@@ -9,7 +9,7 @@ export let BIP_NFTs = [];
 export let payments
 export const path_to_folder = "static/img/"
 const USDT_jetton_address = '0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe'
-const BIP_jetton_address = '0:6fc7606752ffebad72f732e6be9ce0b6901a7c183ea55bb7d1a8598b900cf3bd'
+const BIP_jetton_address = '0:786e74bba071d57c75004bb41bf978ea73e00b03f3f3fbf2b73ea0426f97d6e9'
 const jettons_white_list = {'BIP': BIP_jetton_address, 'USDT': USDT_jetton_address}
 
 export function parse_url() {
@@ -52,13 +52,10 @@ export function updatePriceAndBalance() {
             updateBIPBalanceHTML()
         })
 
-        axios.get(`https://tonapi.io/v2/accounts/UQDt6R_7glxvT18aPuU5sy14h4VnLu0IzLa1ChGt4w1tfuG4/nfts?collection=0:1f3f93d44d975840e76e07eaa407792f3162417a1edd1901acae5602e804353f`).then((response) => {
+        axios.get(`https://tonapi.io/v2/accounts/${localStorage.getItem("wallet_address")}/nfts?collection=EQDhO_YVxvb3p68hqte0kNG5jdO44WQFgWdCe8GvgVkrws4Z`).then((response) => {
             BIP_NFTs = response.data.nft_items
-            BIP_NFTs = BIP_NFTs.concat(BIP_NFTs).concat(BIP_NFTs).concat(BIP_NFTs).concat(BIP_NFTs).concat(BIP_NFTs)
-
         }).finally(()=>{
-            console.log(BIP_NFTs)
-            updateBIPNFTSector(BIP_NFTs)
+            updateBIPChangerHTML()
         })
 
     } else {
