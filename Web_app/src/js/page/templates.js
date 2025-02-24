@@ -100,7 +100,7 @@ export const page_wallet = `
         </div>
         <div id="wallet_info" class="flex mt-4">
             <div class="message-cloud p-4 wallet_access_connect flex hide">
-                <p class="green">Привязан</p>
+                <p class="green text-lg">Привязан</p>
                 <img class="size-6 btn_wallet_disconnect" src="${path_to_folder}normal/delete_red.png" alt="">
             </div>
             <div class="message-cloud wallet_please_connect p-4">
