@@ -105,7 +105,7 @@ export function updateBIPBalanceHTML() {
         BIP_balance_elem.innerHTML = Math.floor(BIP_balance * 100) / 100
         TON_balance_elem.innerHTML = Math.floor(TON_balance * 100) / 100
         USDT_balance_elem.innerHTML = Math.floor(USDT_balance * 100) / 100
-        BIP_price_elem.innerHTML = Math.floor(BIP_price * 10000) / 10000
+        BIP_price_elem.innerHTML = Math.floor(BIP_price * 100) / 100
     }
 
 }
