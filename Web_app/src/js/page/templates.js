@@ -98,7 +98,7 @@ export const page_wallet = `
             Кошелек
             </p>
         </div>
-        <div class="flex mt-4">
+        <div id="wallet_info" class="flex mt-4">
             <div class="message-cloud p-4 wallet_access_connect flex hide">
                 <p class="green text-lg">Привязан</p>
                 <img class="size-6 btn_wallet_disconnect" src="${path_to_folder}normal/delete_red.png" alt="">
@@ -113,37 +113,36 @@ export const page_wallet = `
                 <p class="inline">Цена BIPCoin - <span id="BIP_price" class="gold">0</span>$</p>
             </div>
         </div>
-        <div class="mt-4 wallet_access_connect hide" id="wallet_balance">
+        <div id="wallet_balance" class="mt-4 wallet_access_connect hide">
             <div class="message-cloud p-4">
                 <p class="text-2xl">Баланс</p>
                 <p class="text-lg"><span id="BIP_balance" class="gold">NONE</span> BIPCoin</p>
                 <p class="text-lg"><span id="TON_balance" class="gold">NONE</span> TON</p>
                 <p class="text-lg"><span id="USDT_balance" class="gold">NONE</span> USDT</p>
             </div>
-            <div class="hide mt-4" id="nft_changer">
-                <div id="BIP2NFT" class="message-cloud p-4 ">    
-                    <p class="text-2xl">Конвертация BIPCoin в NFT</p>
-                    <div class="flex ml-2">
-                        <div class="mt-4" id="wallet_nft_items">
-                            <div class="flex">
-                                <input class="input_number" id="BIP_input_count" placeholder="0" type="text">
-                                <p class="text-lg ml-2">BIPCoin</p>
-                            </div>
-                            <input type="button" class="input_btn opacity-2 mt-1" id="btn_send_transaction_to_nft" value="Введите значение больше нуля">
+        </div>
+        <div class="hide wallet_access_connect" id="nft_changer">
+            <div id="changer_BIP2NFT" class="message-cloud p-4 hide mt-4">    
+                <p class="text-2xl">Конвертация BIPCoin в NFT</p>
+                <div class="flex ml-2">
+                    <div class="mt-4" id="wallet_nft_items">
+                        <div class="flex">
+                            <input class="input_number" id="BIP_input_count" placeholder="0" type="number">
+                            <p class="text-lg ml-2">BIPCoin</p>
                         </div>
-                        <img src="" class="img-border r-0 hide" id="nft_preshow_img" alt="nft image">
+                        <input type="button" class="input_btn opacity-2 mt-1" id="btn_send_transaction_to_nft" value="Введите значение больше нуля">
                     </div>
+                    <img src="" class="img-border r-0 hide" id="nft_preshow_img" alt="nft image">
                 </div>
-                <div id="NFT2BIP" class="message-cloud p-4 ">    
-                    <div id="wallet_nft" class="hide">
-                        <p class="text-2xl">Конвертация NFT в BIPCoin</p>
-                        <div class="ml-2 mt-2" id="wallet_nft_list">
-                        
-                        </div>
-                    </div>
-                </div>
-                
             </div>
+            <div id="changer_NFT2BIP" class="message-cloud p-4 hide">    
+                <div id="wallet_nft" class="">
+                    <p class="text-2xl">Конвертация NFT в BIPCoin</p>
+                    <div class="ml-2 mt-2" id="wallet_nft_list">
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 `
@@ -219,13 +218,13 @@ export const page_error_tg =`
 
 export const page_send_to_crypto_content =`
     <div class="flex">
-        <input class="input_number" id="TON_input_count" placeholder="0" type="text">
+        <input class="input_number" id="TON_input_count" placeholder="0" type="number">
         <p class="text-lg ml-2">TON</p>
         <p class="ml-2 mr-2 text-lg">&nbsp&nbsp=</p>
         <p class="text-lg" id="TON_value">0 BIPCoin</p>
     </div>
     <div class="flex">
-        <input class="input_number" id="USDT_input_count" placeholder="0" type="text">
+        <input class="input_number" id="USDT_input_count" placeholder="0" type="number">
         <p class="text-lg ml-2">USDT</p>
         <p class="ml-2 mr-2 text-lg">=</p>
         <p class="text-lg" id="USDT_value">0 BIPCoin</p>
@@ -234,7 +233,7 @@ export const page_send_to_crypto_content =`
 `
 export const page_send_to_card_content =`
     <div class="flex">
-        <input class="input_number" id="RUB_input_count" placeholder="0" type="text">
+        <input class="input_number" id="RUB_input_count" placeholder="0" type="number">
         <p class="text-lg ml-2">RUB</p>
         <p class="ml-2 mr-2 text-lg">=</p>
         <p class="text-lg" id="RUB_value">0 BIPCoin</p>
