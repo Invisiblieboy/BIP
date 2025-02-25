@@ -22,7 +22,7 @@ async def cmd_start(message: types.Message):
     url = APP_URL
     tg_channel_b = InlineKeyboardButton(text="Перейти", web_app=WebAppInfo(url=url))
     markup = types.InlineKeyboardMarkup(inline_keyboard=[[tg_channel_b]])
-    await message.answer(text='По кнопке ниже можно перейти на наше приложение', reply_markup=markup)
+    await message.answer(text='соси ', reply_markup=markup)
 
 
 @dp.message(Command("help"))
