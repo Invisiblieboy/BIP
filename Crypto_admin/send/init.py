@@ -25,7 +25,8 @@ storage = Storage()
 
 
 async def main():
-    await storage.set_item('last_transaction_timestamp', '1735427301')
+    await storage.set_item('last_transaction_timestamp', '1740502239')
+    await storage.set_item('processed_transactions', 'start')
 
 
 if __name__ == '__main__':
