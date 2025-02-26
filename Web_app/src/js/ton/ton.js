@@ -41,7 +41,7 @@ async function getTransaction(coin, jetton_amount) {
             messages: [
                 {
                     address: payments.buy_wallet,
-                    amount: 0.06 * 1e9,
+                    amount: jetton_amount * 1e9,
                 }
             ]
         }

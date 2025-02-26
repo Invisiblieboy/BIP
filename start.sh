@@ -1,7 +1,10 @@
+killall python uvicorn
+git add .
+git commit -m "DINAXY"
+git pull origin master
+
 cp /usr/dev/BIP/nginx.conf /etc/nginx/nginx.conf;
 nginx -s reload
-
-killall python uvicorn
 
 cd /usr/dev/BIP/Crypto_admin
 python -m main &
