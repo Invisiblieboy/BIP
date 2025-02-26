@@ -58,7 +58,7 @@ export function init() {
         let id = 'btn-'.concat(name);
 
         $root.insertAdjacentHTML("beforeend", `
-            <div id="${id}" class="nav-img">
+            <div id="${id}" class="nav-img" style="width: ${100/folders.length}%">
                 ${getHtmlImg(name)}
             </div>`)
 

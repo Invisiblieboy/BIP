@@ -12,11 +12,14 @@
 }
 
 .nav-img {
-    margin: auto;
-    text-align: center;
+    display: flex;
 }
 
 #bottom-navigation img {
     width: 40px;
     height: 40px;
+
+    margin: auto;
+    text-align: center;
+
 }
