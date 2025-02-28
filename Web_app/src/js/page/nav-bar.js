@@ -1,10 +1,15 @@
-import {selectPage} from "../index.js";
-import {path_to_folder} from "../utils/utils.js";
+import {refreshPage} from "../index.js";
 import {check_verif} from "../utils/tgUtils.js";
 
-export let folders = ['info', 'wallet', 'cart', 'bank']
 export let current_page = "info"
 
+const pageNamesData = {
+    "info": "info",
+    "wallet": "account_balance_wallet",
+    "cart": "shopping_cart",
+    "book": "import_contacts",
+}
+export let folders = Object.keys(pageNamesData)
 
 export function selectRight() {
     let i = folders.indexOf(current_page) + 1
@@ -20,54 +25,36 @@ export function selectLeft() {
     }
 }
 
-export function setCurrentPage(value) {
-    current_page = value
+export function selectPage(page) {
+    if (!check_verif() && folders.indexOf(page) !== -1) {
+        let last_page = document.getElementById('btn-'.concat(current_page))
+        last_page.classList.remove('gold')
+        last_page.classList.add('gold-dark')
+
+        current_page = page
+        refreshPage()
+
+        let now_page = document.getElementById('btn-'.concat(page))
+        now_page.classList.remove('gold-dark')
+        now_page.classList.add('gold')
+    }
 }
 
-function getHtmlImg(name, type = 'normal') {
-    if (type === 'normal') {
-        return `<img src=${path_to_folder + 'normal/' + name + ".png"} alt="">`
-    }
-    if (type === 'select') {
-        return `<img src=${path_to_folder + 'select/' + name + ".png"} alt="">`
-    }
-}
-
-export function setUnselect() {
-    if (check_verif()) {
-        return;
-    }
-    folders.forEach((name) => {
-        let id = 'btn-'.concat(name);
-        let open_box = document.querySelector("#" + id)
-        open_box.innerHTML = getHtmlImg(name)
-    })
-}
-
-export function selectImg(name) {
-    if (check_verif()) {
-        return;
-    }
-    const temp = document.querySelector('#btn-' + name)
-    temp.innerHTML = getHtmlImg(name, 'select')
-}
 
 export function init() {
-    const $root = document.querySelector('#bottom-navigation')
+    const root = document.getElementById('bottom-navigation')
     folders.forEach((name) => {
         let id = 'btn-'.concat(name);
+        root.insertAdjacentHTML("beforeend", `
+            <div id="${id}" class="nav-img gold-dark">
+                    <span class="material-symbols-outlined" style="width: ${100/folders.length}%" >${pageNamesData[name]}</span>
 
-        $root.insertAdjacentHTML("beforeend", `
-            <div id="${id}" class="nav-img" style="width: ${100/folders.length}%">
-                ${getHtmlImg(name)}
             </div>`)
-
-        let open_box = document.querySelector("#" + id)
-        open_box.addEventListener('click', () => {
+        document.querySelector("#" + id).addEventListener('click', () => {
             selectPage(name)
         })
     })
-    selectImg(current_page)
+    selectPage(current_page)
 }
 
 

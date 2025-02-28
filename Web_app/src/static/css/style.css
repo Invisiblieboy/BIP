@@ -5,7 +5,9 @@
     --bg-color: var(--black);
     --bg-ms-cl-color: rgba(27, 25, 45);
     --color-gold: #e0b526;
+    --color-gold-dark: #92730c;
     --color-green: rgb(103, 217, 97);
+    --color-red: rgb(255, 0, 0);
     --color-hint: #7e7e7e;
     --color-underline: #837DCE;
     --color-underline-lite: rgba(131, 125, 206, 0.5);
@@ -37,7 +39,7 @@ body {
     background-attachment: fixed;
     height: --tg-viewport-height;
 
-    scrollbar-color: rgba(0,0,0,0) rgba(0,0,0,0)
+    scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
 }
 
 #page {
@@ -64,11 +66,22 @@ body {
     color: var(--color-gold);
 }
 
+.gold-dark {
+    color: var(--color-gold-dark);
+}
+
 .tc-root {
     display: none;
 }
 
-.input_number{
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.input_number {
     border: 1px solid var(--color-underline);
     color: var(--white);
     border-radius: 5px;
@@ -80,7 +93,8 @@ body {
     background-color: rgba(0, 0, 0, 0%);
     text-align: center;
 }
-.input_btn{
+
+.input_btn {
     border: 1px solid var(--color-underline);
     border-radius: 5px;
     outline: none;
@@ -97,6 +111,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+    -moz-appearance: textfield; /* Firefox */
 }

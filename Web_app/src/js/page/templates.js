@@ -1,4 +1,7 @@
-import {path_to_folder} from "../utils/utils.js";
+export const page_error_connect_wallet = `
+    <div id="error_connect_wallet">
+        <p class="text-lg">Сначала подключите <span class="gold site-link btn_page_wallet">кошелек</span></p>
+    </div>`
 
 export const page_info = `
     <div id="info">
@@ -17,13 +20,12 @@ export const page_info = `
         <div class="message-cloud inline p-2 text-sm" id="faq">
             <div class="flex">
                 <p class="text-lg">FAQ</p>
-                <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_arrow" alt="">
+                <span class="size-8 material-symbols-outlined" id="faq_arrow">keyboard_arrow_down</span>
             </div>
             <div class="hide mt-3" id="faq_content">
-                
                 <div class="flex mt-1 mb-1">
                     <p class="text-lg gold">Как BIPCoin работает?</p>
-                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_how_bip_work_arrow" alt="">
+                    <span class="size-8 material-symbols-outlined" id="faq_how_bip_work_arrow">keyboard_arrow_down</span>
                 </div>
                 <div class="hide ml-4 mt-1" id="faq_how_bip_work_content">
                     <p>
@@ -33,7 +35,7 @@ export const page_info = `
             
                 <div class="flex mt-1 mb-1">
                     <p class="text-lg gold">Как можно получить BIPCoin?</p>
-                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_get_bip_arrow" alt="">
+                    <span class="size-8 material-symbols-outlined" id="faq_get_bip_arrow">keyboard_arrow_down</span>
                 </div>
                 <div class="hide ml-4 mt-1" id="faq_get_bip_content">
                     <p>
@@ -47,7 +49,7 @@ export const page_info = `
             
                 <div class="flex mt-1 mb-1">
                     <p class="text-lg gold">Как понять, сколько заплатят?</p>
-                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_how_much_pay_arrow" alt="">
+                    <span class="size-8 material-symbols-outlined" id="faq_how_much_pay_arrow">keyboard_arrow_down</span>
                 </div>
                 <div class="hide ml-4 mt-1" id="faq_how_much_pay_content">
                     <p>
@@ -59,7 +61,7 @@ export const page_info = `
                 
                 <div class="flex mt-1 mb-1">
                     <p class="text-lg gold">Зачем мы это делаем?</p>
-                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_why_we_work_arrow" alt="">
+                    <span class="size-8 material-symbols-outlined" id="faq_why_we_work_arrow">keyboard_arrow_down</span>
                 </div>
                 <div class="hide ml-4 mt-1" id="faq_why_we_work_content">
                     <p>
@@ -69,7 +71,7 @@ export const page_info = `
                 
                 <div class="flex mt-1 mb-1">
                     <p class="text-lg gold">Различные детали</p>
-                    <img class="size-8" src="${path_to_folder}normal/arrow_down.png" id="faq_details_arrow" alt="">
+                    <span class="size-8 material-symbols-outlined" id="faq_details_arrow">keyboard_arrow_down</span>
                 </div>
                 <div class="hide ml-4 mt-1" id="faq_details_content">
                     <p>
@@ -99,9 +101,9 @@ export const page_wallet = `
             </p>
         </div>
         <div id="wallet_info" class="flex mt-4">
-            <div class="message-cloud p-4 wallet_access_connect flex hide">
-                <p class="green text-lg">Привязан</p>
-                <img class="size-6 btn_wallet_disconnect" src="${path_to_folder}normal/delete_red.png" alt="">
+            <div class="message-cloud btn_wallet_disconnect p-4 wallet_access_connect flex hide ">
+                <p class="green text-lg btn_wallet_disconnect">Привязан</p>
+                <span class="size-7 red material-symbols-outlined btn_wallet_disconnect">delete</span>
             </div>
             <div class="message-cloud wallet_please_connect p-4">
                 <p class="btn_wallet_connect site-link gold text-lg" >Подключить кошелек</p>
@@ -155,11 +157,24 @@ export const page_cart = `
         <div class="message-cloud p-2 test mt-4">
             <div class="flex">
                 <p class="text-lg m-0 gold font-bold">Переводом на криптокошлек</p>
-                <img class="size-8 send-to-wallet" src="${path_to_folder}normal/arrow_down.png" id="cart_crypto_arrow" alt="">
+                <span class="size-8 send-to-wallet material-symbols-outlined" id="send_to_crypto_arrow">keyboard_arrow_down</span>
             </div>
             <div class="pl-4 pr-4">
                 <p class="text-sm m-0 text-hint">USDT или TON</p>
                 <div class="mt-4 hide" id="send_to_crypto_content">
+                    <div class="flex">
+                        <input class="input_number" id="TON_input_count" placeholder="0" type="number">
+                        <p class="text-lg ml-2">TON</p>
+                        <p class="ml-2 mr-2 text-lg">&nbsp&nbsp=</p>
+                        <p class="text-lg" id="TON_value">0 BIPCoin</p>
+                    </div>
+                    <div class="flex">
+                        <input class="input_number" id="USDT_input_count" placeholder="0" type="number">
+                        <p class="text-lg ml-2">USDT</p>
+                        <p class="ml-2 mr-2 text-lg">=</p>
+                        <p class="text-lg" id="USDT_value">0 BIPCoin</p>
+                    </div>
+                    <input type="button" class="input_btn text-base w-100 mt-4 opacity-2" id="btn_send_transaction" value="Введите значение больше нуля">
                 </div>
             </div>
         </div>
@@ -167,11 +182,27 @@ export const page_cart = `
         <div class="message-cloud p-2">
             <div class="flex">
                 <p class="text-lg m-0 gold font-bold">Переводом на карту</p>
-                <img class="size-8 send-to-card" src="${path_to_folder}normal/arrow_down.png" id="cart_card_arrow" alt="">
+                <span class="size-8 send-to-card material-symbols-outlined" id="send_to_card_arrow">keyboard_arrow_down</span>
             </div>
             <div class="pl-4 pr-4">
                 <p class="text-sm m-0 text-hint ">ожидание до 12 часов</p>
                 <div class="mt-4 hide" id="send_to_card_content">
+                    <div class="flex">
+                        <input class="input_number" id="RUB_input_count" placeholder="0" type="number">
+                        <p class="text-lg ml-2">RUB</p>
+                        <p class="ml-2 mr-2 text-lg">=</p>
+                        <p class="text-lg" id="RUB_value">0 BIPCoin</p>
+                    </div>
+                    <p class="text-base text-hint mt-2">Переведите сумму до 50к рублей на карту:</p>
+                    <div class="flex">
+                        <p class="text-lg" id="admin_card_number">1234-5678-9012-3456</p>
+                        <span class="ml-2 size-6 material-symbols-outlined" id="copy_admin_card_number">content_copy</span>
+                    </div>
+                    <p class="text-base text-hint mt-2">Обязательно укажите код в коментарии:</p>
+                    <div class="flex">
+                        <p class="text-lg" id = 'card_send_code'>1234567890</p>
+                        <span class="ml-2 size-6 material-symbols-outlined" id="copy_card_send_code">content_copy</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,7 +212,7 @@ export const page_cart = `
         </div>
     </div>
     `
-export const page_bank = `
+export const page_book = `
     <div id="hub">
         <div class="message-cloud p-4">
             <p class="text-3xl gold font-bold text-center m-0">Обучение</p>
@@ -208,46 +239,10 @@ export const page_bank = `
         </div>
     </div>`
 
-export const page_error_tg =`
+export const page_error_tg = `
     <div id = "error-tg">
         <br>
         <div class="message-cloud mt-8">
             <p class="p-4 text-3xl font-bold text-center">Больше информации в нашем <span class="site-link link-tgbot gold">Telegram-боте</span>.</p>
         </div>
-    </div>`
-
-export const page_send_to_crypto_content =`
-    <div class="flex">
-        <input class="input_number" id="TON_input_count" placeholder="0" type="number">
-        <p class="text-lg ml-2">TON</p>
-        <p class="ml-2 mr-2 text-lg">&nbsp&nbsp=</p>
-        <p class="text-lg" id="TON_value">0 BIPCoin</p>
-    </div>
-    <div class="flex">
-        <input class="input_number" id="USDT_input_count" placeholder="0" type="number">
-        <p class="text-lg ml-2">USDT</p>
-        <p class="ml-2 mr-2 text-lg">=</p>
-        <p class="text-lg" id="USDT_value">0 BIPCoin</p>
-    </div>
-    <input type="button" class="input_btn text-base w-100 mt-4 opacity-2" id="btn_send_transaction" value="Введите значение больше нуля">
-`
-export const page_send_to_card_content =`
-    <div class="flex">
-        <input class="input_number" id="RUB_input_count" placeholder="0" type="number">
-        <p class="text-lg ml-2">RUB</p>
-        <p class="ml-2 mr-2 text-lg">=</p>
-        <p class="text-lg" id="RUB_value">0 BIPCoin</p>
-    </div>
-    <p class="text-base text-hint mt-2">Переведите сумму до 50к рублей на карту:</p>
-    <p class="text-lg inline" id="admin_card_number">1234-5678-9012-3456</p>
-    <img class="size-5" src="${path_to_folder}normal/copy.png" id="copy_admin_card_number" alt="">
-
-    <p class="text-base text-hint mt-2">Обязательно укажите код в коментарии:</p>
-    <p class="text-lg inline" id = 'card_send_code'>1234567890</p>
-    <img class="size-5" src="${path_to_folder}normal/copy.png" id="copy_card_send_code" alt="">
-    
-`
-export const page_error_connect_wallet = `
-    <div id="error_connect_wallet">
-        <p class="text-2xl">Сначала подключите <span class="gold site-link btn_page_wallet">кошелек</span></p>
     </div>`

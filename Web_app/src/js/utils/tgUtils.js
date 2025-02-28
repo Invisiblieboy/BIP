@@ -1,5 +1,5 @@
-import {selectPage} from "../index.js";
 import {params} from "./utils.js";
+import {selectPage} from "../page/nav-bar.js";
 
 export let tg = window.Telegram.WebApp
 
