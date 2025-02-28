@@ -12,12 +12,15 @@
 }
 
 .nav-img {
-    margin: auto;
-    text-align: center;
+    display: flex;
 }
 
 #bottom-navigation span {
     width: 40px;
     height: 40px;
     font-size: 40px;
+  
+    margin: auto;
+    text-align: center;
+
 }

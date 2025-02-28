@@ -45,12 +45,11 @@ export function init() {
     const root = document.getElementById('bottom-navigation')
     folders.forEach((name) => {
         let id = 'btn-'.concat(name);
-
         root.insertAdjacentHTML("beforeend", `
             <div id="${id}" class="nav-img gold-dark">
-                    <span class="material-symbols-outlined" >${pageNamesData[name]}</span>
-            </div>`)
+                    <span class="material-symbols-outlined" style="width: ${100/folders.length}%" >${pageNamesData[name]}</span>
 
+            </div>`)
         document.querySelector("#" + id).addEventListener('click', () => {
             selectPage(name)
         })
