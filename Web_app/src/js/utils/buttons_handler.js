@@ -1,5 +1,4 @@
-import {selectPage} from "../index.js";
-import {selectImg, setUnselect} from "../page/nav-bar.js";
+import {selectPage} from "../page/nav-bar.js";
 import {connectWallet, disconnectWallet} from "../ton/tc.js";
 import {payments_settings} from "../page/cart.js";
 import {NFTTransfer, sendTransaction} from "../ton/ton.js";
@@ -10,8 +9,6 @@ export async function buttonsInit() {
     document.addEventListener("click", async function (e) {
         if (e.target?.className.includes("btn_page_wallet")) {
             selectPage('wallet')
-            setUnselect()
-            selectImg('wallet')
         }
         if (e.target?.className.includes("btn_wallet_connect")) {
             await connectWallet()
@@ -49,9 +46,9 @@ export async function buttonsInit() {
             setTimeout(() => elem.classList.remove('anim'), 1000)
             await navigator.clipboard.writeText(elem.innerHTML)
         }
-        if (e.target?.classList.toString().split(' ').indexOf("BIP_NFT_sale_button")!==-1) {
+        if (e.target?.classList.toString().split(' ').indexOf("BIP_NFT_sale_button") !== -1) {
             for (const nft of BIP_NFTs) {
-                if(nft.index.toString()===e.target.id.split('_')[1]){
+                if (nft.index.toString() === e.target.id.split('_')[1]) {
                     console.log(nft.address)
                     console.log(BIP_NFTs)
                     await NFTTransfer(nft.address)

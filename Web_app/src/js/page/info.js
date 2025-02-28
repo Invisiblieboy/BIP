@@ -1,4 +1,4 @@
-import {creteArrowListener} from "../utils/pattern.js";
+import {creteArrowListener} from "../utils/utils.js";
 
 
 export function infoInit() {
@@ -9,17 +9,7 @@ export function infoInit() {
     creteArrowListener('faq_how_much_pay')
     creteArrowListener('faq_details')
 
-    const faq_open_arrow = document.getElementById('faq_arrow')
-    const faq_box = document.getElementById('faq')
-    let faq_arrow_state = 0
-    faq_open_arrow.addEventListener("click", () => {
-        if (faq_arrow_state) {
-            faq_box.classList.add('inline')
-            faq_arrow_state = 0
-        } else {
-            faq_box.classList.remove('inline')
-            faq_arrow_state = 1
-
-        }
+    document.getElementById('faq_arrow').addEventListener("click", () => {
+        document.getElementById('faq').classList.toggle('inline')
     })
 }

@@ -1,5 +1,4 @@
 import {updateBIPBalanceHTML, updateBIPChangerHTML} from "../page/wallet.js";
-import {preloadImages} from "./download_img.js";
 import {init as tgInit} from "./tgUtils.js";
 import {swipeInit} from "../page/swipe.js";
 import {buttonsInit} from "./buttons_handler.js";
@@ -7,7 +6,7 @@ import {buttonsInit} from "./buttons_handler.js";
 export let params = {};
 export let BIP_NFTs = [];
 export let payments
-export const path_to_folder = "static/img/"
+
 const USDT_jetton_address = '0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe'
 const BIP_jetton_address = '0:786e74bba071d57c75004bb41bf978ea73e00b03f3f3fbf2b73ea0426f97d6e9'
 const jettons_white_list = {'BIP': BIP_jetton_address, 'USDT': USDT_jetton_address}
@@ -54,7 +53,7 @@ export function updatePriceAndBalance() {
 
         axios.get(`https://tonapi.io/v2/accounts/${localStorage.getItem("wallet_address")}/nfts?collection=EQDhO_YVxvb3p68hqte0kNG5jdO44WQFgWdCe8GvgVkrws4Z`).then((response) => {
             BIP_NFTs = response.data.nft_items
-        }).finally(()=>{
+        }).finally(() => {
             updateBIPChangerHTML()
         })
 
@@ -64,13 +63,34 @@ export function updatePriceAndBalance() {
             localStorage.setItem(`${coin}_balance`, '0')
             localStorage.setItem(`${coin}_wallet_address`, '')
         }
-        try{updateBIPNFTSector([])}
-        catch (e){}
     }
 }
 
+export function convertRemToPixels(rem) {
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+let arrow_states = {}
+
+export function creteArrowListener(elem) {
+    let elem_arrow = document.getElementById(`${elem}_arrow`)
+    let elem_content = document.getElementById(`${elem}_content`)
+    arrow_states[elem] = 0
+
+    elem_arrow.addEventListener("click", () => {
+        if (arrow_states[elem]) {
+            elem_arrow.innerHTML = 'keyboard_arrow_down'
+            elem_content.classList.add('hide')
+            arrow_states[elem] = 0
+        } else {
+            elem_arrow.innerHTML = 'keyboard_arrow_up'
+            elem_content.classList.remove('hide')
+            arrow_states[elem] = 1
+        }
+    })
+}
+
 export async function utilsInit() {
-    await preloadImages()
     await buttonsInit()
     tgInit()
     swipeInit()
@@ -88,7 +108,4 @@ export async function utilsInit() {
             payments = response.data
         }
     })
-}
-export function convertRemToPixels(rem) {
-    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
