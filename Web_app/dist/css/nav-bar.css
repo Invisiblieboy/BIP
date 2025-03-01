@@ -1,0 +1,26 @@
+
+#bottom-navigation {
+    position: fixed;
+    top: 90%;
+    height: 10%;
+    width: 100%;
+    min-height: 40px;
+    max-width: var(--width-max);
+    background-color: var(--nav-bar-bg-color);
+    backdrop-filter: blur(20px);
+    display: flex;
+}
+
+.nav-img {
+    display: flex;
+}
+
+#bottom-navigation span {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+  
+    margin: auto;
+    text-align: center;
+
+}
