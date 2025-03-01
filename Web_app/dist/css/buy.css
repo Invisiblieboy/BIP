@@ -1,0 +1,22 @@
+
+.title {
+    text-align: center;
+    margin: 5% 6% 0 6%;
+    padding: 5px;
+}
+
+.metods-to-buy {
+    padding: 5px;
+    background-color: #6c582f;
+}
+
+#buy ul {
+    padding-left: 20px;
+}
+
+#buy-title {
+    background-color: black;
+    text-align: left;
+    padding: 0;
+
+}
