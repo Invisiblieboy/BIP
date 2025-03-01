@@ -46,6 +46,10 @@
     display: none;
 }
 
+.permanent-hide {
+    display: none;
+}
+
 .show {
     display: block;
 }
