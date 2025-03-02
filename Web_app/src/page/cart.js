@@ -1,4 +1,4 @@
-import {creteArrowListener, payments} from "../utils/utils.js";
+import {creteArrowListener, is_mobile, payments} from "../utils/utils.js";
 import {tonConnectUI} from "../ton/tc.js";
 import {page_error_connect_wallet} from "./templates.js";
 
@@ -11,14 +11,14 @@ export function updateCoinInputAndValueHtml(value, coin) {
 
     let html
     if (!value || value <= 0) {
-        if (btn_send_transaction) {
+        if (btn_send_transaction && coin !== 'RUB') {
             btn_send_transaction?.classList.add('opacity-2')
             btn_send_transaction.value = 'Введите значение больше нуля'
         }
         html = '0 BIPCoin'
         payments_settings.can = false
     } else if (isNaN(value * 1)) {
-        if (btn_send_transaction) {
+        if (btn_send_transaction && coin !== 'RUB') {
             btn_send_transaction.classList.add('opacity-2')
             btn_send_transaction.value = 'Введено некорректное значение'
         }
@@ -30,7 +30,7 @@ export function updateCoinInputAndValueHtml(value, coin) {
 
         let coin_max = localStorage.getItem(`${coin}_balance`)
         if (value * 1 <= coin_max) {
-            if (btn_send_transaction) {
+            if (btn_send_transaction && coin !== 'RUB') {
                 btn_send_transaction.classList.remove('opacity-2')
                 btn_send_transaction.value = `Оплатить ${value * 1} ${coin}`
             }
@@ -39,7 +39,8 @@ export function updateCoinInputAndValueHtml(value, coin) {
             payments_settings.amount = value
         } else {
             payments_settings.can = false
-            if (btn_send_transaction) {
+            if (btn_send_transaction && coin !== 'RUB') {
+
                 btn_send_transaction.classList.add('opacity-2');
                 btn_send_transaction.value = `Недостаточно средств на кошельке`
             }
@@ -87,12 +88,19 @@ export function cartInit() {
         if (send_to_crypto_content_last) {
             send_to_crypto_content.innerHTML = send_to_crypto_content_last
         }
-        document.getElementById('TON_input_count').addEventListener('input', (e) => {
+        let TON_input_count = document.getElementById('TON_input_count')
+        TON_input_count.addEventListener('input', (e) => {
             updateCoinInputAndValueHtml(e.target.value, 'TON')
         });
-        document.getElementById('USDT_input_count').addEventListener('input', (e) => {
+        let USDT_input_count = document.getElementById('USDT_input_count')
+        USDT_input_count.addEventListener('input', (e) => {
             updateCoinInputAndValueHtml(e.target.value, 'USDT')
         });
+
+        if (!is_mobile) {
+            USDT_input_count.type = 'text'
+            TON_input_count.type = 'text'
+        }
     }
     //pageSendToCardInit
 
@@ -105,9 +113,13 @@ export function cartInit() {
         if (send_to_card_content_last) {
             send_to_card_content.innerHTML = send_to_card_content_last
         }
-        document.getElementById('RUB_input_count').addEventListener('input', (e) => {
+        let RUB_input_count = document.getElementById('RUB_input_count')
+        RUB_input_count.addEventListener('input', (e) => {
             updateCoinInputAndValueHtml(e.target.value, 'RUB')
         });
+        if (!is_mobile) {
+            RUB_input_count.type = 'text'
+        }
         let initData;
         try {
             initData = window.Telegram.WebApp.initDataUnsafe.user.id
