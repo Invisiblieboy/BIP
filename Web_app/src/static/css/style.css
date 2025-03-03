@@ -37,7 +37,7 @@ body {
     background-repeat: no-repeat;
     background-size: min(80vh, 100vw);
     background-attachment: fixed;
-    height: --tg-viewport-height;
+    height: --tg-viewport-stable-height;
 
     scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
 }
