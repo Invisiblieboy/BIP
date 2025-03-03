@@ -13,7 +13,7 @@ export async function linksInit() {
             window.open("https://t.me/biplions1", "_blank")
         }
         if (e.target?.className.includes("link-tgbot")) {
-            window.open("https://t.me/BIPapp_bot?start=app", "_blank")
+            window.open("https://t.me/BIPapp_bot/app?start=app", "_blank")
         }
         if (e.target?.className.includes("link-baltinvestproject")) {
             window.open("https://t.me/BaltInvestProekt", "_blank")
