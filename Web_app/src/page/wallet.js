@@ -1,8 +1,7 @@
 import {tonConnectUI} from "../ton/tc.js";
 import {updateCoinInputAndValueHtml} from "./cart.js";
-import {BIP_NFTs, convertRemToPixels} from "../utils/utils.js";
+import {BIP_NFTs, convertRemToPixels, is_mobile} from "../utils/utils.js";
 
-export let BIP_NFTs_last_length = -1;
 export let nft_payment_settings = {can: false, amount: 0}
 let bip_value_last = 0;
 
@@ -23,6 +22,9 @@ export function walletInit() {
             usdt_input?.addEventListener('input', (e) => {
                 updateCoinInputAndValueHtml(e.target.value, 'BIP')
             });
+            if (!is_mobile && usdt_input) {
+                usdt_input.type = 'text'
+            }
         }
 
     } else {
@@ -33,7 +35,7 @@ export function walletInit() {
             elem.classList.add('hide')
         }
     }
-    preload_nft_img([1,100,1000,10000])
+    preload_nft_img([100, 1000, 10000, 1])
     updateBIPBalanceHTML()
     updateBIPChangerHTML()
 
@@ -42,15 +44,12 @@ export function walletInit() {
 export function updateBIPChangerHTML() {
     try {
         if (localStorage.getItem('BIP_balance') > 0) {
-            let BIP_input_count = document.getElementById('BIP_input_count')
-            if (BIP_input_count) {
-                BIP_input_count.addEventListener('input', (e) => {
-                    updateNFTCoinInputAndValueHtml(e.target.value)
-                })
-            }
-            document.getElementById("changer_BIP2NFT").classList.remove('hide')
+            document.getElementById('BIP_input_count')?.addEventListener('input', (e) => {
+                updateNFTCoinInputAndValueHtml(e.target.value)
+            })
+            document.getElementById("changer_BIP2NFT")?.classList.remove('hide')
         } else {
-            document.getElementById("changer_BIP2NFT").classList.add('hide')
+            document.getElementById("changer_BIP2NFT")?.classList.add('hide')
         }
 
 
@@ -77,16 +76,17 @@ export function updateBIPChangerHTML() {
             `;
                 i++
             })
-            if(wallet_nft_list.innerHTML !== wallet_nft_list_nuw){
+            if (wallet_nft_list && wallet_nft_list?.innerHTML !== wallet_nft_list_nuw) {
                 wallet_nft_list.innerHTML = wallet_nft_list_nuw
             }
 
-            document.getElementById('changer_NFT2BIP').classList.remove('hide')
+            document.getElementById('changer_NFT2BIP')?.classList.remove('hide')
         } else {
-            document.getElementById('changer_NFT2BIP').classList.add('hide')
+            document.getElementById('changer_NFT2BIP')?.classList.add('hide')
         }
     } catch (e) {
-        setTimeout(updateBIPChangerHTML,500)
+        console.log(e)
+        setTimeout(updateBIPChangerHTML, 500)
     }
 
 }
@@ -162,8 +162,9 @@ function updateNFTCoinInputAndValueHtml(value) {
     }
     document.getElementById(`BIP_input_count`).style.width = width
 }
+
 function preload_nft_img(bip_value) {
-    if(typeof bip_value === 'object'){
+    if (typeof bip_value === 'object') {
         for (const element of bip_value) {
             preload_nft_img(element)
         }
@@ -172,15 +173,16 @@ function preload_nft_img(bip_value) {
     axios.get(`https://nft.biptoken.xyz/CreateItemMetadata?value=${bip_value}`, {
         responseType: "json",
         transformResponse: (body) => body
-    }).then((res)=>{
+    }).then((res) => {
         axios.get(JSON.parse(res.data).image)
 
         let nft_img = document.getElementById("nft_preshow_img")
-        if(nft_img){
+        if (nft_img) {
             nft_img.src = JSON.parse(res.data).image
         }
     })
 }
+
 function update_nft_img(bip_value = 0) {
 
     let nft_img = document.getElementById("nft_preshow_img")

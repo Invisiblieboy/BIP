@@ -6,6 +6,7 @@ import {buttonsInit} from "./buttons_handler.js";
 export let params = {};
 export let BIP_NFTs = [];
 export let payments
+export let is_mobile
 
 const USDT_jetton_address = '0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe'
 const BIP_jetton_address = '0:786e74bba071d57c75004bb41bf978ea73e00b03f3f3fbf2b73ea0426f97d6e9'
@@ -108,4 +109,6 @@ export async function utilsInit() {
             payments = response.data
         }
     })
+
+    is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }

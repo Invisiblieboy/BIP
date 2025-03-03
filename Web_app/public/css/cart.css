@@ -1,0 +1,13 @@
+
+.anim {
+    animation: bs 1s;
+}
+
+@keyframes bs {
+    0% {
+        background-color: var(--color-gold);
+    }
+    100% {
+        background-color: rgba(0,0,0,0%);
+    }
+}
