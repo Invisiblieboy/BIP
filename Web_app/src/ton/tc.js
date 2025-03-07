@@ -3,7 +3,7 @@ import {params, updatePriceAndBalance} from "../utils/utils.js";
 import {tg} from "../utils/tgUtils.js";
 
 export const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-    manifestUrl: 'https://app.biptoken.xyz/static/json/MANIFEST.json',
+    manifestUrl: 'https://app.biptoken.xyz/json/MANIFEST.json',
     buttonRootId: 'ton-connect',
     enableAndroidBackHandler: true
 });
