@@ -32,7 +32,7 @@ body {
     color: var(--white);
     background-color: var(--bg-color);
 
-    background-image: url("../img/bg_lion.png");
+    background-image: url("https://static.biptoken.xyz/lion/bg_lion.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: min(80vh, 100vw);
