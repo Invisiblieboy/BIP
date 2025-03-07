@@ -1,0 +1,17 @@
+.venv
+.idea
+.env
+
+logs
+*.log
+
+node_modules
+temp/
+*.local
+
+Crypto_admin/wallet/
+Crypto_admin/utils/
+Crypto_admin/data/wallets/
+Smart_contract/
+
+__pycache__/
