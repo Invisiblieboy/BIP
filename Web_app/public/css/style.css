@@ -81,6 +81,10 @@ body {
     'opsz' 24
 }
 
+.icon-load {
+    visibility: hidden;
+}
+
 .input_number {
     border: 1px solid var(--color-underline);
     color: var(--white);

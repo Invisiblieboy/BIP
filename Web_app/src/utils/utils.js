@@ -33,6 +33,10 @@ export function updatePriceAndBalance() {
 
     if (address) {
         axios.get(`https://tonapi.io/v2/accounts/${address}/jettons`).then((response) => {
+            axios.get(`https://tonapi.io/v2/accounts/${localStorage.getItem("wallet_address")}/nfts?collection=EQDhO_YVxvb3p68hqte0kNG5jdO44WQFgWdCe8GvgVkrws4Z`).then((response) => {
+                BIP_NFTs = response.data.nft_items
+                updateBIPChangerHTML()
+            })
             for (let jetton of response.data.balances) {
                 for (let [coin, addr] of Object.entries(jettons_white_list)) {
                     if (jetton.jetton.address === addr) {
@@ -50,12 +54,6 @@ export function updatePriceAndBalance() {
             localStorage.setItem('TON_balance', 0)
         }).finally(() => {
             updateBIPBalanceHTML()
-        })
-
-        axios.get(`https://tonapi.io/v2/accounts/${localStorage.getItem("wallet_address")}/nfts?collection=EQDhO_YVxvb3p68hqte0kNG5jdO44WQFgWdCe8GvgVkrws4Z`).then((response) => {
-            BIP_NFTs = response.data.nft_items
-        }).finally(() => {
-            updateBIPChangerHTML()
         })
 
     } else {
@@ -95,6 +93,16 @@ export async function utilsInit() {
     await buttonsInit()
     tgInit()
     swipeInit()
+
+
+    document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+        icon.classList.add('icon-load');
+    });
+    document.fonts.ready.then(() => {
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            icon.classList.remove('icon-load');
+        });
+    });
 
     const $root = document.querySelector('#root')
     const div = document.createElement('div');
