@@ -4,6 +4,7 @@ import logging
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
+
 from data.config import BOT_TOKEN, PRICE_TAX
 from data.storage import storage
 from send.seller import Seller
@@ -95,6 +96,21 @@ async def send(message: types.Message):
             f'USER ID - @{username}\n\nAMOUNT - `{amount_bip}` BIP\n\nADDRESS - `{uwallet}`\n\nMESSAGE - `{comment}`'
             f'\n\nplease enter /deny or /approve', parse_mode="MARKDOWN")
         transactions[admin_uname] = (uwallet, amount_bip, comment)
+
+
+@dp.message(Command("info"))
+async def get_storage_info(message: types.Message):
+    def parse(title, data: dict):
+        s = f'<b>{title}</b>\n'
+        for i, (key, item) in enumerate(data.items()):
+            s += f"{i + 1})  <code>{key}</code> - <code>{item}</code>\n"
+        return s
+
+    admin_uname = message.from_user.username
+    if admin_uname in white_list:
+        await message.answer(parse('id2wallet', json.loads(await storage.get_item('id2wallet'))), parse_mode='HTML')
+        await message.answer(parse('id2user', json.loads(await storage.get_item('id2user'))), parse_mode="HTML")
+        await message.answer(parse('banlist', json.loads(await storage.get_item('banlist'))), parse_mode="HTML")
 
 
 async def init():
