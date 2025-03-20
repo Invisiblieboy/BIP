@@ -19,14 +19,15 @@ async def __actionParse(action: dict, tokens_white_list: list) -> dict:
 
     sender = action[type]['sender']['address']
     amount = int(action[type]['amount'])
+    comment = action[type].get('comment')
 
     if action['type'] == 'TonTransfer' and (
             amount / 1e9 >= MIN_TON_BUY_LIMIT or sender == TESTER_ADDRESS) and 'TON' in tokens_white_list:
-        return {'status': 'ok', 'amount': amount / 1e9, 'token': 'TON', 'sender': sender}
+        return {'status': 'ok', 'amount': amount / 1e9, 'token': 'TON', 'sender': sender, 'comment': comment}
     if action['type'] == 'JettonTransfer':
         if action['JettonTransfer']['jetton']['address'] == USDT_JETTON_MASTER_ADDRESS and 'USDT' in tokens_white_list:
             if amount / 1e6 >= MIN_USDT_BUY_LIMIT or sender == TESTER_ADDRESS:
-                return {'status': 'ok', 'amount': amount / 1e6, 'token': 'USDT', 'sender': sender}
+                return {'status': 'ok', 'amount': amount / 1e6, 'token': 'USDT', 'sender': sender, 'comment': comment}
         else:
             return {'status': 'error', 'details': 'Noname token'}
 
@@ -63,7 +64,7 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
                         processed_transactions_str += '|' + transaction['event_id']
                         for action in transaction['actions']:
                             reply = await __actionParse(action, tokens)
-                            if reply['status'] == 'ok':
+                            if reply['status'] == 'ok' and reply.get('comment') != "not sale":
                                 amount_bip = await calcBIPCount(reply['amount'], reply['token'],
                                                                 price_correct=PRICE_TAX)
                                 message = f'Спасибо за покупку BIP на {reply['amount']} {reply['token']}'
@@ -77,6 +78,7 @@ async def autoHandlingNuwBuys(sleep=3):
     while 1:
         await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
         await asyncio.sleep(sleep)
+
 
 if __name__ == '__main__':
     asyncio.run(autoHandlingNuwBuys())
