@@ -1,8 +1,6 @@
 pkill -9 python
 pkill -9 uvicorn
 
-git add .
-git commit -m "DINAXY"
 git pull origin master
 
 cp /usr/dev/BIP/nginx.conf /etc/nginx/nginx.conf;
