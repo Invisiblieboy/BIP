@@ -1,3 +1,7 @@
 {
-  "main_developer": "Сердюков Я.Н.\nGitHub: https://github.com/Invisiblieboy/BIPCoin\nTelegram: https://t.me/spiwt"
+  "main_developer": {
+    "name": "Сердюков Я.Н.",
+    "github": "https://github.com/Invisiblieboy/BIPCoin",
+    "telegram": "https://t.me/spiwt"
+  }
 }
