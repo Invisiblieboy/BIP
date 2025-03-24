@@ -1,6 +1,6 @@
 import {tonConnectUI} from "../ton/tc.js";
 import {updateCoinInputAndValueHtml} from "./cart.js";
-import {BIP_NFTs, convertRemToPixels, is_mobile} from "../utils/utils.js";
+import {BIP_NFTs, convertRemToPixels, is_mobile, params} from "../utils/utils.js";
 
 export let nft_payment_settings = {can: false, amount: 0}
 let bip_value_last = 0;
@@ -8,7 +8,7 @@ let bip_value_last = 0;
 export function walletInit() {
     const wallet_please_connect = document.getElementsByClassName('wallet_please_connect')
     const wallet_access_connect = document.getElementsByClassName('wallet_access_connect')
-    if (tonConnectUI.connected) {
+    if (tonConnectUI.connected || params['wallet_connect'] === 'true') {
         for (let elem of wallet_please_connect) {
             elem.classList.add('hide')
         }

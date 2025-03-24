@@ -1,4 +1,4 @@
-import {creteArrowListener, is_mobile, payments} from "../utils/utils.js";
+import {creteArrowListener, is_mobile, params, payments} from "../utils/utils.js";
 import {tonConnectUI} from "../ton/tc.js";
 import {page_error_connect_wallet} from "./templates.js";
 
@@ -81,7 +81,7 @@ export function cartInit() {
     // pageSendToCryptoInit
     let send_to_crypto_content = document.getElementById('send_to_crypto_content')
     let send_to_crypto_content_last
-    if (!tonConnectUI.connected) {
+    if (!(tonConnectUI.connected || params['wallet_connect'] === 'true')) {
         send_to_crypto_content_last = send_to_crypto_content.innerHTML
         send_to_crypto_content.innerHTML = page_error_connect_wallet;
     } else {
@@ -106,7 +106,7 @@ export function cartInit() {
 
     let send_to_card_content = document.getElementById('send_to_card_content')
     let send_to_card_content_last
-    if (!tonConnectUI.connected) {
+    if (!(tonConnectUI.connected || params['wallet_connect'] === 'true')) {
         send_to_card_content_last = send_to_card_content.innerHTML
         send_to_card_content.innerHTML = page_error_connect_wallet;
     } else {
