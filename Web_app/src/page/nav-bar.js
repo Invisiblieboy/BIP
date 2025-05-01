@@ -1,14 +1,17 @@
 import {refreshPage} from "../index.js";
+import {params} from "../utils/utils.js";
+import {tg} from "../utils/tgUtils.js";
 
 export let current_page = "info"
+export let folders
 
 const pageNamesData = {
     "info": "info",
     "wallet": "account_balance_wallet",
+    "nft": "savings",
     "cart": "shopping_cart",
     "book": "import_contacts",
 }
-export let folders = Object.keys(pageNamesData)
 
 export function selectRight() {
     let i = folders.indexOf(current_page) + 1
@@ -40,6 +43,11 @@ export function selectPage(page) {
 
 
 export function init() {
+    if (!(params.beta === 'true' || tg?.initDataUnsafe?.user?.id === 1447179490)) {
+        delete pageNamesData.nft
+    }
+    folders = Object.keys(pageNamesData)
+
     const root = document.getElementById('bottom-navigation')
     folders.forEach((name) => {
         let id = 'btn-'.concat(name);

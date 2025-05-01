@@ -1,6 +1,7 @@
 import {tonConnectUI} from "../ton/tc.js";
 import {updateCoinInputAndValueHtml} from "./cart.js";
-import {BIP_NFTs, convertRemToPixels, is_mobile, params} from "../utils/utils.js";
+import {BIP_NFTs, convertRemToPixels, is_mobile, params, server_wallet_data} from "../utils/utils.js";
+import {tg} from "../utils/tgUtils.js";
 
 export let nft_payment_settings = {can: false, amount: 0}
 let bip_value_last = 0;
@@ -14,6 +15,11 @@ export function walletInit() {
         }
         for (let elem of wallet_access_connect) {
             elem.classList.remove('hide')
+        }
+
+        if (tg?.initDataUnsafe.user?.id === 1447179490) {
+            document.getElementById('server_wallet_balance').classList.remove('permanent-hide')
+            sw_balance_elem.innerHTML = server_wallet_data.balance
         }
 
         if (Number(localStorage.getItem('BIP_balance')) > 0) {
