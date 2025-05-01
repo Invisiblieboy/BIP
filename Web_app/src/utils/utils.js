@@ -28,7 +28,7 @@ function get_server_wallet_data() {
     }
     axios.get('https://api.biptoken.xyz/v1/wallet/info', {
         params: {
-            tgInitData: encodeURIComponent(tg.initData)
+            tgInitData: tg.initData
         }
     }).then((response) => {
         if (response.data['op'] === "0") {
