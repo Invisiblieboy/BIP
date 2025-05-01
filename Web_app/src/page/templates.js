@@ -111,7 +111,7 @@ export const page_wallet = `
             <div class="message-cloud wallet_please_connect p-4">
                 <p class="site-link link-how-create-tk text-lg gold">Как создать?</p>
             </div>
-            <div class="message-cloud text-lg p-4">
+            <div class="message-cloud text-lg p-4 pl-2 pr-2">
                 <p class="inline">Цена BIPCoin - <span id="BIP_price" class="gold">0</span>$</p>
             </div>
         </div>

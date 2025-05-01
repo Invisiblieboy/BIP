@@ -21,16 +21,34 @@ export function parse_url() {
 
 }
 
+function updateRubPrice() {
+    axios.get('https://www.cbr-xml-daily.ru/daily_json.js').then((response) => {
+        localStorage.setItem(`RUB_price`, response.data.Valute.USD.Value)
+    }).finally(() => {
+        return localStorage.getItem(`RUB_price`)
+    })
+}
+
+function updateTonPrice() {
+    axios.get('https://api.coingecko.com/api/v3/coins/the-open-network').then((response) => {
+        localStorage.setItem(`TON_price`, response.data.market_data.current_price.usd)
+    }).finally(() => {
+        return localStorage.getItem(`TON_price`)
+    })
+}
+
+function updateBipPrice() {
+    let pool_addr = "EQCJWbehGyHtkgw6IMzcY1VPAJwre1sWWGvqKYm1_h0CpsJe"
+    axios.get(`https://api.geckoterminal.com/api/v2/networks/ton/pools/${pool_addr}`).then((response) => {
+        localStorage.setItem(`BIP_price`, response.data.data.attributes.base_token_price_quote_token)
+    }).finally(() => {
+        return localStorage.getItem(`BIP_price`)
+    })
+}
+
 
 export function updatePriceAndBalance() {
     let address = localStorage.getItem('wallet_address')
-    axios.get('https://api.biptoken.xyz/v1/price/tokens').then((response) => {
-        let prices_nuw = Object(response.data)
-        Object.entries(prices_nuw).forEach((item) => {
-            localStorage.setItem(`${item[0].toUpperCase()}_price`, item[1])
-        })
-    })
-
     if (address) {
         axios.get(`https://tonapi.io/v2/accounts/${address}/jettons`).then((response) => {
             axios.get(`https://tonapi.io/v2/accounts/${localStorage.getItem("wallet_address")}/nfts?collection=EQDhO_YVxvb3p68hqte0kNG5jdO44WQFgWdCe8GvgVkrws4Z`).then((response) => {
@@ -109,7 +127,11 @@ export async function utilsInit() {
     div.id = "bottom-navigation";
     $root.appendChild(div);
 
-    updatePriceAndBalance()
+
+    setInterval(updateRubPrice, 20 * 60 * 1000)
+    setInterval(updateTonPrice, 60 * 1000)
+    setInterval(updateBipPrice, 60 * 1000)
+
     setInterval(updatePriceAndBalance, 10000)
 
     await axios.get('https://api.biptoken.xyz/v1/info/payments').then((response) => {
