@@ -1,4 +1,5 @@
 import asyncio
+import time
 
 import aiohttp
 from data.config import RECEIVE_ADDRESS, TESTER_ADDRESS, USDT_JETTON_MASTER_ADDRESS, MIN_TON_BUY_LIMIT, \
@@ -57,9 +58,9 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
                 events = await response.json()
                 events['events'].reverse()
                 for transaction in events['events']:
+                    print(transaction['timestamp']-last_transaction_timestamp)
                     if transaction['timestamp'] > last_transaction_timestamp:
                         last_transaction_timestamp = transaction['timestamp']
-
                     if transaction['event_id'] not in processed_transactions_set:
                         processed_transactions_str += '|' + transaction['event_id']
                         for action in transaction['actions']:
@@ -68,7 +69,8 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
                                 amount_bip = await calcBIPCount(reply['amount'], reply['token'],
                                                                 price_correct=PRICE_TAX)
                                 message = f'Спасибо за покупку BIP на {reply['amount']} {reply['token']}'
-                                await Seller().sendBIP([(reply['sender'], amount_bip, message)])
+                                print([(reply['sender'], amount_bip, message)])
+                                # await Seller().sendBIP([(reply['sender'], amount_bip, message)])
 
     await storage.set_item('last_transaction_timestamp', last_transaction_timestamp)
     await storage.set_item('processed_transactions', processed_transactions_str)
