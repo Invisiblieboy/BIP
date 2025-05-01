@@ -35,7 +35,6 @@ function get_server_wallet_data() {
             server_wallet_data = response.data.data
         }
     }).finally(() => {
-        console.log(server_wallet_data)
         return server_wallet_data
     })
 }
