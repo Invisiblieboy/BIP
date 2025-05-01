@@ -1,5 +1,5 @@
 import {updateBIPBalanceHTML, updateBIPChangerHTML} from "../page/wallet.js";
-import {init as tgInit} from "./tgUtils.js";
+import {init as tgInit, tg} from "./tgUtils.js";
 import {swipeInit} from "../page/swipe.js";
 import {buttonsInit} from "./buttons_handler.js";
 
@@ -7,6 +7,7 @@ export let params = {};
 export let BIP_NFTs = [];
 export let payments
 export let is_mobile
+export let server_wallet_data = {}
 
 const USDT_jetton_address = '0:b113a994b5024a16719f69139328eb759596c38a25f59028b146fecdc3621dfe'
 const BIP_jetton_address = '0:786e74bba071d57c75004bb41bf978ea73e00b03f3f3fbf2b73ea0426f97d6e9'
@@ -21,6 +22,24 @@ export function parse_url() {
 
 }
 
+function get_server_wallet_data() {
+    if (!tg.initData) {
+        return server_wallet_data
+    }
+    axios.get('https://api.biptoken.xyz/v1/wallet/info', {
+        params: {
+            tgInitData: encodeURIComponent(tg.initData)
+        }
+    }).then((response) => {
+        if (response.data['op'] === "0") {
+            server_wallet_data = response.data.data
+        }
+    }).finally(() => {
+        console.log(server_wallet_data)
+        return server_wallet_data
+    })
+}
+
 function updateRubPrice() {
     axios.get('https://www.cbr-xml-daily.ru/daily_json.js').then((response) => {
         localStorage.setItem(`RUB_price`, response.data.Valute.USD.Value)
@@ -28,6 +47,7 @@ function updateRubPrice() {
         return localStorage.getItem(`RUB_price`)
     })
 }
+
 
 function updateTonPrice() {
     axios.get('https://api.coingecko.com/api/v3/coins/the-open-network').then((response) => {
@@ -131,8 +151,12 @@ export async function utilsInit() {
     setInterval(updateRubPrice, 20 * 60 * 1000)
     setInterval(updateTonPrice, 60 * 1000)
     setInterval(updateBipPrice, 60 * 1000)
+    if (tg.initData) {
+        setInterval(get_server_wallet_data, 10 * 1000)
+    }
 
-    setInterval(updatePriceAndBalance, 10000)
+    setInterval(updatePriceAndBalance, 10 * 1000)
+
 
     await axios.get('https://api.biptoken.xyz/v1/info/payments').then((response) => {
         if (response.status === 200) {

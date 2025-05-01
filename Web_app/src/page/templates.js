@@ -123,6 +123,12 @@ export const page_wallet = `
                 <p class="text-lg"><span id="USDT_balance" class="gold">NONE</span> USDT</p>
             </div>
         </div>
+        <div id="server_wallet_balance" class="permanent-hide">
+            <div class="message-cloud p-4">
+                <p>Баланс на сервере:</p>
+                <p id="sw_balance_elem">0</p>
+            </div>
+        </div>
         <div class="hide wallet_access_connect" id="nft_changer">
             <div id="changer_BIP2NFT" class="message-cloud p-4 hide mt-4">    
                 <p class="text-2xl">Конвертация BIPCoin в NFT</p>
@@ -146,6 +152,12 @@ export const page_wallet = `
             </div>
             
         </div>
+    </div>
+`
+
+export const page_nft = `
+    <div id="nft">
+        <span class="material-symbols-outlined">savings</span>
     </div>
 `
 

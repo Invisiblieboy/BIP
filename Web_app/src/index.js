@@ -1,4 +1,4 @@
-import {page_book, page_cart, page_error_tg, page_info, page_wallet} from './page/templates.js'
+import {page_book, page_cart, page_error_tg, page_info, page_nft, page_wallet} from './page/templates.js'
 import {current_page, init as navInit} from "./page/nav-bar.js";
 import {parse_url, utilsInit} from "./utils/utils.js";
 import {check_verif} from "./utils/tgUtils.js";
@@ -16,6 +16,9 @@ export function refreshPage() {
     } else if (current_page === 'wallet') {
         $page.innerHTML = page_wallet
         walletInit()
+    } else if (current_page === 'nft') {
+        $page.innerHTML = page_nft
+        // walletInit()
     } else if (current_page === 'cart') {
         $page.innerHTML = page_cart
         cartInit()
@@ -38,4 +41,6 @@ async function main() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async () => main());
+(async () => {
+    document.addEventListener('DOMContentLoaded', async () => main());
+})()
