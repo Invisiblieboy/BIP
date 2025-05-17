@@ -1,6 +1,4 @@
 import {refreshPage} from "../index.js";
-import {params} from "../utils/utils.js";
-import {tg} from "../utils/tgUtils.js";
 
 export let current_page = "info"
 export let folders
@@ -42,18 +40,22 @@ export function selectPage(page) {
 }
 
 
-export function init() {
-    if (!(params.beta === 'true' || tg?.initDataUnsafe?.user?.id === 1447179490)) {
-        delete pageNamesData.nft
+export function navInit(names = {...pageNamesData}) {
+    // if (!(params.beta === 'true' || tg?.initDataUnsafe?.user?.id === 1447179490)) {
+    //     delete names.nft
+    // }
+    if (!localStorage.getItem('wallet_address')) {
+        delete names.nft
     }
-    folders = Object.keys(pageNamesData)
+    folders = Object.keys(names)
 
     const root = document.getElementById('bottom-navigation')
+    root.innerHTML = ''
     folders.forEach((name) => {
         let id = 'btn-'.concat(name);
         root.insertAdjacentHTML("beforeend", `
             <div id="${id}" class="nav-img gold-dark" style="width: ${100 / folders.length}%">
-                    <span class="material-symbols-outlined" >${pageNamesData[name]}</span>
+                    <span class="material-symbols-outlined" >${names[name]}</span>
 
             </div>`)
         document.querySelector("#" + id).addEventListener('click', () => {

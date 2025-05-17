@@ -38,6 +38,8 @@ async def add_member_percents(value: float = 0.3 / 365):
     end_date = time.time()
     value = round(value, 10)
 
+    i = 100
+
     for user_data in data.values():
         transactions = user_data['transactions']
         deposits_keys = filter(lambda x: float(x) > end_date, transactions.keys())
@@ -48,10 +50,13 @@ async def add_member_percents(value: float = 0.3 / 365):
             continue
 
         user_data['balance'] = round(float(user_data['balance']) + bonus, 10)
-        user_data['transactions'][time.time().__str__()] = {
-            "text": f'Deposit percents {round(bonus, 6)} BIP',
+        user_data['transactions'][(time.time() - i * 86400).__str__()] = {
+            "text": f'Deposit percents',
+            "type": 1001,
             "value": bonus,
             "id": uuid7str()}
+
+        i -= 1
 
     storage.save(data)
 
@@ -77,8 +82,9 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
             continue
 
         data[id]['balance'] = round(float(data[id]['balance']) + amount, 10).__str__()
-        data[id]['transactions'][time.time().__str__()] = {
-            "text": f'Chat member bonus {amount} BIP',
+        data[id]['transactions'][(time.time() - 86400 * 110).__str__()] = {
+            "text": f'Chat member bonus',
+            "type": 1002,
             "value": amount,
             "id": uuid7str()}
 

@@ -5,19 +5,19 @@ export const page_error_connect_wallet = `
 
 export const page_info = `
     <div id="info">
-        <div class="message-cloud p-4">
+        <div class="message-cloud">
             <p class="text-center text-sm text-hint mt-1">
                 <span class="gold font-bold text-3xl m-0 ml-4">BIPCoin</span> - первая цифровая монета, привязанная к экономической деятельности реальной компании.</p>
         </div>
         <div class="message-cloud mt-4">
-            <p class="p-2 text-base text-center m-0"><span class="gold font-bold text-lg link-biptoken site-link">BIP Token</span> - главный канал токена. Там публикуются самые свежие новости о BIP.</p>
-            <p class="p-2 text-base text-center m-0"><span class="gold font-bold text-lg link-bipizm site-link">Бипизм</span> - чат для обсуждения любых событий.</p>
+            <p class="text-base text-center m-0"><span class="gold font-bold text-lg link-biptoken site-link">BIP Token</span> - главный канал токена. Там публикуются самые свежие новости о BIP.</p>
+            <p class="text-base text-center m-0"><span class="gold font-bold text-lg link-bipizm site-link">Бипизм</span> - чат для обсуждения любых событий.</p>
         </div>
         <div class="message-cloud mt-4">
-            <p class="p-2 text-base text-center m-0"><span class="gold font-bold text-lg link-baltinvestproject site-link">Архитектура и Проектирование</span> - канал, посвященный компании ООО "БИП".</p>
-            <p class="p-2 text-base text-center m-0 mt-1"><span class="gold font-bold text-lg link-biplions site-link">Баскетбол | BIP LIONS</span> - наша баскетбольная команда.</p>
+            <p class="text-base text-center m-0"><span class="gold font-bold text-lg link-baltinvestproject site-link">Архитектура и Проектирование</span> - канал, посвященный компании ООО "БИП".</p>
+            <p class="text-base text-center m-0 mt-1"><span class="gold font-bold text-lg link-biplions site-link">Баскетбол | BIP LIONS</span> - наша баскетбольная команда.</p>
         </div>
-        <div class="message-cloud inline p-2 text-sm" id="faq">
+        <div class="message-cloud inline text-sm" id="faq">
             <div class="flex">
                 <p class="text-lg">FAQ</p>
                 <span class="size-8 material-symbols-outlined" id="faq_arrow">keyboard_arrow_down</span>
@@ -95,42 +95,56 @@ export const page_info = `
 
 export const page_wallet = `
     <div id="wallet">
-        <div class="message-cloud p-4">
+        <div class="message-cloud">
             <p class="text-3xl gold font-bold text-center m-0">
             Кошелек
             </p>
         </div>
-        <div id="wallet_info" class="flex mt-4">
-            <div class="message-cloud btn_wallet_disconnect p-4 wallet_access_connect flex hide ">
+        <div class="flex mt-4" id="wallet_info">
+            <div class="message-cloud btn_wallet_disconnect pl-1 pr-1 l-0 r-0 wallet_access_connect flex hide">
                 <p class="green text-lg btn_wallet_disconnect">Привязан</p>
                 <span class="size-7 red material-symbols-outlined btn_wallet_disconnect">delete</span>
             </div>
-            <div class="message-cloud wallet_please_connect p-4">
+            <div class="message-cloud wallet_please_connect l-0 r-0">
                 <p class="btn_wallet_connect site-link gold text-lg" >Подключить кошелек</p>
             </div>
-            <div class="message-cloud wallet_please_connect p-4">
+            <div class="message-cloud wallet_please_connect l-0 r-0">
                 <p class="site-link link-how-create-tk text-lg gold">Как создать?</p>
             </div>
-            <div class="message-cloud text-lg p-4 pl-2 pr-2">
-                <p class="inline">Цена BIPCoin - <span id="BIP_price" class="gold">0</span>$</p>
+            <div class="message-cloud text-lg pl-1 pr-1 l-0 r-0">
+                <p class="inline">Цена BIPCoin - <span class="gold" id="BIP_price">0</span>$</p>
             </div>
         </div>
-        <div id="wallet_balance" class="mt-4 wallet_access_connect hide">
-            <div class="message-cloud p-4">
-                <p class="text-2xl">Баланс</p>
-                <p class="text-lg"><span id="BIP_balance" class="gold">NONE</span> BIPCoin</p>
-                <p class="text-lg"><span id="TON_balance" class="gold">NONE</span> TON</p>
-                <p class="text-lg"><span id="USDT_balance" class="gold">NONE</span> USDT</p>
-            </div>
+        <div class="mt-4 message-cloud wallet_access_connect hide" id="wallet_balance">
+            <p class="text-2xl">Баланс криптокошелька</p>
+            <p class="text-lg"><span class="gold" id="BIP_balance">NONE</span> BIPCoin</p>
+            <p class="text-lg"><span class="gold" id="TON_balance">NONE</span> TON</p>
+            <p class="text-lg"><span class="gold" id="USDT_balance">NONE</span> USDT</p>
         </div>
-        <div id="server_wallet_balance" class="permanent-hide">
-            <div class="message-cloud p-4">
-                <p>Баланс на сервере:</p>
-                <p id="sw_balance_elem">0</p>
+        <div class="message-cloud wallet_access_connect" id="server_wallet">
+            <div class="" id="server_wallet_balance">
+                <p class="text-2xl">Баланс на сервере</p>
+                <p class="text-lg"><span class="gold" id="sw_balance_num">NONE</span> BIPCoin</p>
             </div>
+            <div class="flex mt-4 text-lg">
+                <p class="mr-2">Вывести на кошелек </p>
+                <input class="input_number mr-2" id="BIP_transfer_input_count" placeholder="0" type="number">
+                <p class="mr-2"> BIP</p>
+            </div>
+            <input class="input_btn opacity-2 mt-1" id="btn_send_transaction_to_sw" type="button" value="Подтвердить">
+            
         </div>
-        <div class="hide wallet_access_connect" id="nft_changer">
-            <div id="changer_BIP2NFT" class="message-cloud p-4 hide mt-4">    
+        <div class="mt-4 message-cloud wallet_access_connect" id="server_wallet_transactions">
+            <p class="text-2xl">История транзакций</p>
+            <div id="sw_transactions_list"></div>
+        </div>
+    </div>
+`
+
+export const page_nft = `
+    <div id="nft">
+        <div class="" id="nft_changer">
+            <div class="message-cloud hide mt-4" id="changer_BIP2NFT">    
                 <p class="text-2xl">Конвертация BIPCoin в NFT</p>
                 <div class="flex ml-2">
                     <div class="mt-4" id="wallet_nft_items">
@@ -138,13 +152,13 @@ export const page_wallet = `
                             <input class="input_number" id="BIP_input_count" placeholder="0" type="number">
                             <p class="text-lg ml-2">BIPCoin</p>
                         </div>
-                        <input type="button" class="input_btn opacity-2 mt-1" id="btn_send_transaction_to_nft" value="Введите значение больше нуля">
+                        <input class="input_btn opacity-2 mt-1" id="btn_send_transaction_to_nft" type="button" value="Введите значение больше нуля">
                     </div>
-                    <img src="" class="img-border r-0 hide" id="nft_preshow_img" alt="nft image">
+                    <img alt="nft image" class="img-border r-0 hide" id="nft_preshow_img" src="">
                 </div>
             </div>
-            <div id="changer_NFT2BIP" class="message-cloud p-4 hide">    
-                <div id="wallet_nft" class="">
+            <div class="message-cloud hide" id="changer_NFT2BIP">    
+                <div class="" id="wallet_nft">
                     <p class="text-2xl">Конвертация NFT в BIPCoin</p>
                     <div class="ml-2 mt-2" id="wallet_nft_list">
                     </div>
@@ -155,18 +169,12 @@ export const page_wallet = `
     </div>
 `
 
-export const page_nft = `
-    <div id="nft">
-        <span class="material-symbols-outlined">savings</span>
-    </div>
-`
-
 export const page_cart = `
     <div id="cart">
-        <div class="message-cloud p-4">
+        <div class="message-cloud">
             <p class="text-3xl gold font-bold text-center m-0">Купить у авторов</p>
         </div>
-        <div class="message-cloud p-2 test mt-4">
+        <div class="message-cloud mt-4">
             <div class="flex">
                 <p class="text-lg m-0 gold font-bold">Переводом на криптокошлек</p>
                 <span class="size-8 send-to-wallet material-symbols-outlined" id="send_to_crypto_arrow">keyboard_arrow_down</span>
@@ -191,7 +199,7 @@ export const page_cart = `
             </div>
         </div>
         
-        <div class="message-cloud p-2">
+        <div class="message-cloud">
             <div class="flex">
                 <p class="text-lg m-0 gold font-bold">Переводом на карту</p>
                 <span class="size-8 send-to-card material-symbols-outlined" id="send_to_card_arrow">keyboard_arrow_down</span>
@@ -218,7 +226,7 @@ export const page_cart = `
                 </div>
             </div>
         </div>
-        <div class="message-cloud p-2">
+        <div class="message-cloud">
             <p class="text-lg m-0 gold font-bold">СБП</p>
             <p class="text-sm m-0 text-hint pl-4">в разработке</p>
         </div>
@@ -226,12 +234,12 @@ export const page_cart = `
     `
 export const page_book = `
     <div id="hub">
-        <div class="message-cloud p-4">
+        <div class="message-cloud">
             <p class="text-3xl gold font-bold text-center m-0">Обучение</p>
         </div>
         <div class="text-base message-cloud mt-4">
-            <p class="text-2xl p-2">Как купить BIPCoin если есть:</p>
-            <div class="p-4 pt-2 gold">
+            <p class="text-2xl">Как купить BIPCoin если есть:</p>
+            <div class="ml-2 mt-2 gold">
                 <p class="site-link-lite inline link-how-buy-usdt-on-wallet">- USDT на криптокошельке в сети TON.</p><br>
                 <p class="site-link-lite inline pt-1 link-how-buy-usdt-on-CEX">- USDT на криптобирже.</p><br>
                 <p class="site-link-lite inline pt-1 link-how-buy-verif-on-CEX">- RUB и верификация на криптобирже.</p><br>
@@ -239,13 +247,13 @@ export const page_book = `
             </div>
         </div>
         <div class="text-base message-cloud mt-4">
-            <p class="text-2xl p-2">Как создать:</p>
-            <div class="p-4 pt-2 gold">
+            <p class="text-2xl">Как создать:</p>
+            <div class="gold ml-2">
                 <p class="site-link-lite inline link-how-create-tk">- Криптовалютный кошелек.</p><br>
             </div>
         </div>
         <div class="text-base message-cloud mt-4">
-            <div class="p-4 pt-2 gold">
+            <div class="gold">
                 <p class="text-2xl site-link-lite inline link-how-sell-rub">Как продать BIPCoin</p><br>
             </div>
         </div>

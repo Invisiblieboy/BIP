@@ -1,7 +1,8 @@
-import {updateBIPBalanceHTML, updateBIPChangerHTML} from "../page/wallet.js";
+import {updateBIPBalanceHTML} from "../page/wallet.js";
 import {init as tgInit, tg} from "./tgUtils.js";
 import {swipeInit} from "../page/swipe.js";
 import {buttonsInit} from "./buttons_handler.js";
+import {updateBIPChangerHTML} from "../page/nft.js";
 
 export let params = {};
 export let BIP_NFTs = [];
@@ -22,13 +23,13 @@ export function parse_url() {
 
 }
 
-function get_server_wallet_data() {
-    if (!tg.initData) {
+export function get_server_wallet_data(tgInitData = tg.initData) {
+    if (!tgInitData) {
         return server_wallet_data
     }
     axios.get('https://api.biptoken.xyz/v1/wallet/info', {
         params: {
-            tgInitData: tg.initData
+            tgInitData
         }
     }).then((response) => {
         if (response.data['op'] === "0") {

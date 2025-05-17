@@ -199,6 +199,10 @@
     margin-left: 1rem;
 }
 
+.p-0 {
+    padding: 0;
+}
+
 .p-1 {
     padding: 0.25rem;
 }
@@ -215,8 +219,41 @@
     padding: 1rem;
 }
 
+.pr-0 {
+    padding-right: 0;
+}
+
+.pr-1 {
+    padding-right: 0.25rem;
+}
+
+.pr-2 {
+    padding-right: 0.5rem;
+}
+
+.pr-3 {
+    padding-right: 0.75rem;
+}
+
+
 .pr-4 {
     padding-right: 1rem;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+
+.pl-1 {
+    padding-left: 0.25rem;
+}
+
+.pl-2 {
+    padding-left: 0.5rem;
+}
+
+.pl-3 {
+    padding-left: 0.75rem;
 }
 
 .pl-4 {
@@ -322,4 +359,12 @@
 
 .overflow-y-scroll {
     overflow-y: scroll;
+}
+
+.fl-r {
+    float: right
+}
+
+.fl-l {
+    float: left
 }

@@ -1,11 +1,12 @@
 import {page_book, page_cart, page_error_tg, page_info, page_nft, page_wallet} from './page/templates.js'
-import {current_page, init as navInit} from "./page/nav-bar.js";
+import {current_page, navInit} from "./page/nav-bar.js";
 import {parse_url, utilsInit} from "./utils/utils.js";
 import {check_verif} from "./utils/tgUtils.js";
 import {cartInit} from "./page/cart.js";
 import {walletInit} from "./page/wallet.js";
 import {linksInit} from "./utils/links_handler.js";
 import {infoInit} from "./page/info.js";
+import {nftInit} from "./page/nft.js";
 
 const $page = document.querySelector('#page')
 
@@ -18,7 +19,7 @@ export function refreshPage() {
         walletInit()
     } else if (current_page === 'nft') {
         $page.innerHTML = page_nft
-        // walletInit()
+        nftInit()
     } else if (current_page === 'cart') {
         $page.innerHTML = page_cart
         cartInit()

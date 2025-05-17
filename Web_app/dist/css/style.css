@@ -60,6 +60,7 @@ body {
     border-radius: 1rem;
     margin: 0.5rem 0.5rem 0 0.5rem;
     background-color: var(--bg-ms-cl-color);
+    padding: 1rem;
 }
 
 .gold {
@@ -118,4 +119,8 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield; /* Firefox */
+}
+
+.trs-day {
+    border-top: 0.2rem solid dimgrey;
 }
