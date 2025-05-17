@@ -1,11 +1,11 @@
 import {creteArrowListener, is_mobile, params, payments} from "../utils/utils.js";
 import {tonConnectUI} from "../ton/tc.js";
 import {page_error_connect_wallet} from "./templates.js";
+import {tg} from "../utils/tgUtils.js";
 
 export let payments_settings = {can: false, token: undefined, amount: 0}
 
 export function updateCoinInputAndValueHtml(value, coin) {
-    coin = coin.toUpperCase()
     let btn_send_transaction = document.getElementById('btn_send_transaction');
     localStorage.setItem(`${coin}_input_count`, '0')
 
@@ -122,7 +122,7 @@ export function cartInit() {
         }
         let initData;
         try {
-            initData = window.Telegram.WebApp.initDataUnsafe.user.id
+            initData = tg.initDataUnsafe.user.id
         } catch (e) {
             initData = 'UserID'
         }
