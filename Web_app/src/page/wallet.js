@@ -1,6 +1,5 @@
 import {tonConnectUI} from "../ton/tc.js";
-import {get_server_wallet_data, is_mobile, params, server_wallet_data} from "../utils/utils.js";
-import {tg} from "../utils/tgUtils.js";
+import {is_mobile, params, server_wallet_data} from "../utils/utils.js";
 import {updateCoinInputAndValueHtml} from "./cart.js";
 
 export let nft_payment_settings = {can: false, amount: 0}
@@ -14,11 +13,6 @@ export function walletInit() {
         }
         for (let elem of wallet_access_connect) {
             elem.classList.remove('hide')
-        }
-
-        if (tg?.initDataUnsafe.user?.id === 1447179490) {
-            document.getElementById('server_wallet_balance').classList.remove('permanent-hide')
-            sw_balance_elem.innerHTML = server_wallet_data.balance
         }
 
     } else {
@@ -69,7 +63,7 @@ function updateServerWalletBalanceHTML() {
 function updateServerWalletTransactionsHTML() {
     try {
         let sw_transactions_list = document.getElementById('sw_transactions_list')
-        if (sw_transactions_list) {
+        if (sw_transactions_list && server_wallet_data.transactions) {
             let keys = Object.keys(server_wallet_data.transactions).sort()
             let server_wallet_transactions_str = ''
             let day_html = ''
@@ -77,12 +71,6 @@ function updateServerWalletTransactionsHTML() {
             for (const key of keys.reverse()) {
                 let value = server_wallet_data.transactions[key]
                 let date = new Date(key * 1000);
-                let date_full_str = date.toLocaleString('ru-RU', {
-                    month: 'long',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric'
-                })
                 let date_md_str = date.toLocaleString('ru-RU', {
                     month: 'long',
                     day: 'numeric'
@@ -92,8 +80,6 @@ function updateServerWalletTransactionsHTML() {
                     server_wallet_transactions_str += day_html
                     day_html = `<p class="text-lg">${date_md_str}</p>`
                 }
-                // let newDiv = document.createElement("div")
-                // newDiv.insertBefore(document.createElement("p"))
                 let receive = value.value > 0
                 day_html += `
                 <div class="m-2 ml-4">

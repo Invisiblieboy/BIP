@@ -40,6 +40,11 @@ export function get_server_wallet_data(tgInitData = tg.initData) {
     })
 }
 
+function setIntervalImmediately(func, interval, ...args) {
+    func(...args); // Немедленное исполнение функции
+    return setInterval(func, interval, ...args); // Затем функция продолжает работать по интервалу
+}
+
 function updateRubPrice() {
     axios.get('https://www.cbr-xml-daily.ru/daily_json.js').then((response) => {
         localStorage.setItem(`RUB_price`, response.data.Valute.USD.Value)
@@ -151,9 +156,8 @@ export async function utilsInit() {
     setInterval(updateRubPrice, 20 * 60 * 1000)
     setInterval(updateTonPrice, 60 * 1000)
     setInterval(updateBipPrice, 60 * 1000)
-    if (tg.initData) {
-        setInterval(get_server_wallet_data, 10 * 1000)
-    }
+    setIntervalImmediately(get_server_wallet_data, 10 * 1000)
+
 
     setInterval(updatePriceAndBalance, 10 * 1000)
 
