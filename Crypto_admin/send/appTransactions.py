@@ -110,10 +110,11 @@ async def checkAndSendSWCashOut(receive_address):
                                                                                                 "type": 2001,
                                                                                                 "value": -user_cash_out,
                                                                                                 "id": wd_id}
-                                    pprint(users_data[reply['sender']])
+
+                                    await storage.set_item('sw_user_data', users_data)
+                                    pprint(await storage.get_item('sw_user_data'))
 
                                     await Seller(SW_SEED_PHRASE).sendBIP([(reply['sender'], user_cash_out, wd_id)])
-                                    await storage.set_item('sw_user_data', users_data)
 
                         await storage.set_item('last_cash_out_timestamp', last_cash_out_timestamp)
                         await storage.set_item('processed_cash_outs', processed_cash_outs_str)
