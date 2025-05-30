@@ -1,32 +1,37 @@
 import asyncio
 import json
-import os
 from pprint import pprint
 
 from fastapi import APIRouter
 
+from utils.storage import storage
 from v1.utils.tg_web_app_auth import WebAppAuth, AuthError
 
 wallet_router = APIRouter(prefix='/wallet', tags=['wallet', 'info'])
 
 
 @wallet_router.get("/info")
-async def bip_price(tgInitData):
+async def wallet_info(tgInitData):
     try:
         user_id = str(WebAppAuth().get_user_id(tgInitData))
     except AuthError as e:
         return {'state': 'invalid', 'op': '-100', 'detail': e.detail}
 
-    for path in ['C:/Work/Projects/BIP/TG_admin/data.json',
-                 '/usr/dev/BIP/TG_admin/data.json'][::-1]:
-        if os.path.isfile(path):
-            with open(path, 'r') as f:
-                users_data: dict = json.load(f)
-                break
-    else:
-        return {'state': 'invalid', 'op': '-101', 'detail': 'Server error'}
+    # for path in ['C:/Work/Projects/BIP/Server_wallet/data/data.json',
+    #              '/usr/dev/BIP/Server_wallet/data/data.json'][::-1]:
+    #     if os.path.isfile(path):
+    #         with open(path, 'r') as f:
+    #             users_data: dict = json.load(f)
+    #             break
+    # else:
+    #     return {'state': 'invalid', 'op': '-101', 'detail': 'Server error'}
 
-    user_data = users_data.get(user_id)
+    users_data = json.loads(await storage.get_item('sw_user_data'))
+    id2wallet = json.loads(await storage.get_item('id2wallet'))
+    addr = id2wallet.get(user_id)
+    if not addr:
+        return {'state': 'success', 'op': '101', 'detail': 'Unknown user'}
+    user_data = users_data.get(addr, None)
 
     if user_data:
         return {'state': 'success', 'op': '0', 'data': user_data}

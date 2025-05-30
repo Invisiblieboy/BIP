@@ -4,8 +4,7 @@ import logging
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
-
-from data.config import BOT_TOKEN, PRICE_TAX
+from data.config import BOT_TOKEN, PRICE_TAX, SENDER_SEED_PHRASE
 from data.storage import storage
 from send.seller import Seller
 
@@ -41,7 +40,7 @@ async def send(message: types.Message):
         if trans:
             uwallet, amount_bip, comment = trans
             if uwallet and amount_bip and comment:
-                tri = await Seller().sendBIP([(uwallet, amount_bip, comment)])
+                tri = await Seller(SENDER_SEED_PHRASE).sendBIP([(uwallet, amount_bip, comment)])
                 await message.answer(f'Success tri: `{tri}`')
             else:
                 await message.answer(f'Error\n`{uwallet}`\n`{amount_bip}`\n`{comment}`', parse_mode="MARKDOWN")
