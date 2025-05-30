@@ -7,6 +7,9 @@ export function infoInit() {
     creteArrowListener('faq_why_we_work')
     creteArrowListener('faq_how_bip_work')
     creteArrowListener('faq_how_much_pay')
+    creteArrowListener('faq_what_we_suggest')
+    creteArrowListener('faq_why_30_percents')
+    creteArrowListener('faq_how_much_total_BIPCoin')
     creteArrowListener('faq_details')
 
     document.getElementById('faq_arrow').addEventListener("click", () => {
