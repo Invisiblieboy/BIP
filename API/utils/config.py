@@ -24,6 +24,7 @@ payments = {
     "wallet": 'UQAlYNS0neZkR-rCxKJAVALuc2Ni_QiHyjrEqjg18yaNjjg6',
     "buy_wallet": 'UQAlYNS0neZkR-rCxKJAVALuc2Ni_QiHyjrEqjg18yaNjjg6',
     "nft_wallet": 'EQB5pj8eAdP7bfRqEaI7jZEE1V8ZPtfjqleFAG_AXnHnHXs0',
+    "sw_cash_out": 'UQBe3aIl5TX2OwP3ap6KJZKWI3-ohXpJpdpkp_dVRjL5qbKD'
 }
 
 load_dotenv()
