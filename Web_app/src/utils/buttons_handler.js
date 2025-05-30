@@ -3,7 +3,7 @@ import {connectWallet, disconnectWallet} from "../ton/tc.js";
 import {payments_settings} from "../page/cart.js";
 import {NFTTransfer, sendBuyTransactions, sendChangeNFTTransactions, sendTONTransaction} from "../ton/ton.js";
 import {nft_payment_settings} from "../page/wallet.js";
-import {BIP_NFTs, server_wallet_data} from "./utils.js";
+import {BIP_NFTs, payments, server_wallet_data} from "./utils.js";
 
 export async function buttonsInit() {
     document.addEventListener("click", async function (e) {
@@ -37,7 +37,7 @@ export async function buttonsInit() {
         if (e.target?.id === "btn_send_transaction_to_sw") {
             let transfer_count = Number(localStorage.getItem('BIP_transfer_input_count'))
             if (transfer_count <= server_wallet_data.balance) {
-                if (await sendTONTransaction('UQB7q5qYhCOAIQbhWlIoq78ZXpGZWRn-gZc30-CSckZSMc_s', 0.05, transfer_count)) {
+                if (await sendTONTransaction(payments.sw_cash_out, 0.05, transfer_count)) {
                     document.getElementById('btn_send_transaction_to_nft').value = 'Транзакция обрабатывается'
                 } else {
                     document.getElementById('btn_send_transaction_to_nft').value = 'Ошибка при отправке транзакции'
