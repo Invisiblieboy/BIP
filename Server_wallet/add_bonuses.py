@@ -49,7 +49,8 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
 
     users_data = json.loads(await redis_storage.get_item('user_data'))
 
-    async with session.get(f'https://tonapi.io/v2/jettons/{BIP_address}/holders?limit=1000') as response:
+    async with session.get(f'https://tonapi.io/v2/jettons/{BIP_address}/holders?limit=1000',
+                           proxy=random.choice(proxies)) as response:
         if response.status != 200:
             raise ValueError
         response_data = await response.json()
@@ -77,7 +78,8 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
                     if history_response.status == 200:
                         history_response_data = await history_response.json()
                     else:
-                        await asyncio.sleep(0.5)
+                        print('restorrr', wallet_owner, history_response.status)
+                        await asyncio.sleep(1)
 
             a = events_parse(history_response_data)
 
@@ -86,6 +88,7 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
             if bonus <= 0:
                 continue
 
+            print('add_percents_by_cw', wallet_owner, bonus)
             users_data[wallet_owner]['balance'] = round(float(users_data[wallet_owner]['balance']) + bonus, 10)
             users_data[wallet_owner]['transactions'][time.time()] = {"text": f'Deposit percents', "type": 1003,
                                                                      "value": bonus, "id": uuid7str()}
