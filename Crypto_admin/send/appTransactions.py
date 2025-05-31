@@ -137,11 +137,10 @@ async def autoHandlingSWCashOut(sleep=3):
 
 
 async def main():
-    await checkAndSendSWCashOut(SW_RECEIVE_ADDRESS)
-    # task1 = asyncio.create_task(autoHandlingNuwBuys())
-    # task2 = asyncio.create_task(autoHandlingSWCashOut())
-    # await task1
-    # await task2
+    task1 = asyncio.create_task(autoHandlingNuwBuys())
+    task2 = asyncio.create_task(autoHandlingSWCashOut())
+    await task1
+    await task2
 
 
 if __name__ == '__main__':
