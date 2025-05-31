@@ -112,7 +112,7 @@ async def checkAndSendSWCashOut(receive_address):
                                                                                                 "id": wd_id}
 
                                     await storage.set_item('sw_user_data', users_data)
-                                    pprint(await storage.get_item('sw_user_data'))
+                                    pprint(json.loads(await storage.get_item('sw_user_data')).get(reply['sender']))
 
                                     await Seller(SW_SEED_PHRASE).sendBIP([(reply['sender'], user_cash_out, wd_id)])
 
@@ -137,10 +137,11 @@ async def autoHandlingSWCashOut(sleep=3):
 
 
 async def main():
-    task1 = asyncio.create_task(autoHandlingNuwBuys())
-    task2 = asyncio.create_task(autoHandlingSWCashOut())
-    await task1
-    await task2
+    await checkAndSendSWCashOut(SW_RECEIVE_ADDRESS)
+    # task1 = asyncio.create_task(autoHandlingNuwBuys())
+    # task2 = asyncio.create_task(autoHandlingSWCashOut())
+    # await task1
+    # await task2
 
 
 if __name__ == '__main__':

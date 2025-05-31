@@ -10,7 +10,9 @@ client = redis.Redis(host='localhost', port=6379)
 class Storage:
     base_key = 'BIP_'
 
-    async def set_item(self, key: str, value: str):
+    async def set_item(self, key: str, value: str|dict):
+        if isinstance(value,dict):
+            value = json.dumps(value)
         await client.set(name=self.base_key + key, value=value)
 
     async def get_item(self, key: str, default_value: str = None):
