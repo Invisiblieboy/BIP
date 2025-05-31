@@ -45,8 +45,7 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
 async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: aiohttp.ClientSession = None):
     if not session:
         async with aiohttp.ClientSession() as session:
-            await add_member_percents_by_cw_balance(value, session)
-        return
+            return await add_member_percents_by_cw_balance(value, session)
 
     users_data = json.loads(await redis_storage.get_item('user_data'))
 

@@ -15,6 +15,7 @@ async def auto_add_bonuses():
 
 async def main():
     await redis_storage.set_item('user_data', {})
+    await redis_storage.save('user_data', 'user_data')
     # await asyncio.sleep(get_seconds_until_tomorrow_utc())
     task1 = asyncio.create_task(auto_add_bonuses())
     await task1
