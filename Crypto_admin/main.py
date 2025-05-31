@@ -5,8 +5,8 @@ from send import appTransactions
 
 
 async def main():
-    task1 = asyncio.create_task(appTransactions.autoHandlingNuwBuys(2))
-    task2 = asyncio.create_task(appTransactions.autoHandlingSWCashOut(3))
+    task1 = asyncio.create_task(appTransactions.autoHandlingNuwBuys(5))
+    task2 = asyncio.create_task(appTransactions.autoHandlingSWCashOut(5))
     task3 = asyncio.create_task(help_bot.main())
 
     await task1
