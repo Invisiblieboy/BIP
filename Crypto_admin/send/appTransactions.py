@@ -124,7 +124,10 @@ async def autoHandlingNuwBuys(sleep=3):
     await storage.set_item('last_transaction_timestamp', str(int(time.time())))
     await storage.set_item('processed_transactions', 'start')
     while 1:
-        await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
+        try:
+            await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
+        except Exception as e:
+            print(time.time(),'checkAndSendNuwTransactions',e)
         await asyncio.sleep(sleep)
 
 
@@ -132,7 +135,10 @@ async def autoHandlingSWCashOut(sleep=3):
     await storage.set_item('last_cash_out_timestamp', str(int(time.time())))
     await storage.set_item('processed_cash_outs', 'start')
     while 1:
-        await checkAndSendSWCashOut(SW_RECEIVE_ADDRESS)
+        try:
+            await checkAndSendSWCashOut(SW_RECEIVE_ADDRESS)
+        except Exception as e:
+            print(time.time(),'checkAndSendSWCashOut',e)
         await asyncio.sleep(sleep)
 
 
