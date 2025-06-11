@@ -39,5 +39,8 @@ export async function linksInit() {
         if (e.target?.className.includes("link-baltinvestpro-stats")) {
             window.open("https://www.rusprofile.ru/id/4405609", "_blank")
         }
+        if (e.target?.className.includes("link-NFT-lock-500k")) {
+            window.open("https://tonviewer.com/EQAMKtgKB4QVDFx5Krl4Z5QM8-j5UULNaHGcZHJRjIf4o1SL", "_blank")
+        }
     })
 }
