@@ -1,6 +1,7 @@
 pkill -9 python
 pkill -9 uvicorn
 
+cd /usr/dev/BIP
 git stash
 git pull origin master
 
