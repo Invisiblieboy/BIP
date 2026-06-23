@@ -15,9 +15,14 @@ from utils import events_parse
 async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders', amount: str | float | int = 0.05):
     data = json.loads(await redis_storage.get_item('user_data'))
     id2wallet = json.loads(await redis_storage.get_item('BIP_id2wallet', full_key=True))
+
     if not app:
-        async with Client("BIPholders_stat_bot") as app:
-            return await add_member_daily_bonus(app)
+        app = Client("BIPholders_stat_bot")
+        await app.start()
+        try:
+            return await add_member_daily_bonus(app, chat_id, amount)
+        finally:
+            await app.stop()
 
     chat = await app.get_chat(chat_id)
     amount = round(amount, 10)
@@ -40,6 +45,7 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
         # a = {"id": user.id,  #      "first_name": user.first_name,  #      "last_name": user.last_name,  #      "username": user.username,  #      "is_bot": user.is_bot,  #      "joined_date": member.joined_date})
 
     await redis_storage.set_item('user_data', data)
+    print('success add_member_daily_bonus')
 
 
 async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: aiohttp.ClientSession = None):
@@ -78,7 +84,6 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
                     if history_response.status == 200:
                         history_response_data = await history_response.json()
                     else:
-                        print('restorrr', wallet_owner, history_response.status)
                         await asyncio.sleep(1)
 
             a = events_parse(history_response_data)
@@ -88,12 +93,12 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
             if bonus <= 0:
                 continue
 
-            print('add_percents_by_cw', wallet_owner, bonus)
             users_data[wallet_owner]['balance'] = round(float(users_data[wallet_owner]['balance']) + bonus, 10)
             users_data[wallet_owner]['transactions'][time.time()] = {"text": f'Deposit percents', "type": 1003,
                                                                      "value": bonus, "id": uuid7str()}
 
     await redis_storage.set_item('user_data', users_data)
+    print('success add_member_percents_by_cw_balance')
 
 
 def __get_bonus(user_data, value, end_date=time.time() - 23 * 60 * 60):

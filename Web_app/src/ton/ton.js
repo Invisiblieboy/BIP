@@ -2,6 +2,7 @@ import {tonConnectUI} from "./tc.js";
 import {payments} from "../utils/utils.js";
 
 const tonweb = new window.TonWeb();
+const Address = tonweb.utils.Address;
 
 
 async function createCommentCell(comment, toBase64 = true) {
@@ -16,8 +17,6 @@ async function createCommentCell(comment, toBase64 = true) {
 
 
 async function jetton_body(amount, destination, forward_ton_amount = 1, comment = null) {
-    const Address = tonweb.utils.Address;
-
     let cell = new tonweb.boc.Cell();
     cell.bits.writeUint(0xf8a7ea5, 32)              // jetton transfer op code
     cell.bits.writeUint(Date.now(), 64)             // query_id:uint64
@@ -38,8 +37,6 @@ async function jetton_body(amount, destination, forward_ton_amount = 1, comment 
 }
 
 async function nft_body(new_owner, forward_ton_amount = 0.15 * 1e9) {
-    const Address = tonweb.utils.Address;
-
     let cell = new tonweb.boc.Cell();
     cell.bits.writeUint(0x5fcc3d14, 32)              // nft transfer op code
     cell.bits.writeUint(Date.now(), 64)             // query_id:uint64
@@ -53,12 +50,13 @@ async function nft_body(new_owner, forward_ton_amount = 0.15 * 1e9) {
 }
 
 async function getNFTTransfer(nft_address) {
+    const user_friendly_nft_address = new Address(nft_address).toString(true, true, true);
     return {
-        validUntil: Math.floor(new Date() / 1000) + 360,
+        validUntil: Math.floor(new Date() / 1000) + 4 * 60,
         messages: [
             {
-                address: nft_address,
-                amount: 0.2 * 1e9,
+                address: user_friendly_nft_address,
+                amount: (0.2 * 1e9).toString(),
                 payload: await nft_body(payments.nft_wallet)
             }
         ]
@@ -66,12 +64,13 @@ async function getNFTTransfer(nft_address) {
 }
 
 async function getTONTransaction(address, amount, comment = null) {
+    const user_friendly_address= new Address(address).toString(true, true, true);
     return {
-        validUntil: Math.floor(new Date() / 1000) + 360,
+        validUntil: Math.floor(new Date() / 1000) + 4 * 60,
         messages: [
             {
-                address: address,
-                amount: amount * 1e9,
+                address: user_friendly_address,
+                amount: (amount * 1e9).toString(),
                 payload: await createCommentCell(comment)
             }
         ]
@@ -80,13 +79,14 @@ async function getTONTransaction(address, amount, comment = null) {
 
 
 async function getJettonTransaction(my_address, dest_address, amount, forward_ton_amount = 0.000_000_001) {
+    const user_friendly_my_address= new Address(my_address).toString(true, true, true);
     return {
-        validUntil: Math.floor(new Date() / 1000) + 360,
+        validUntil: Math.floor(new Date() / 1000) + 4 * 60,
         messages: [
             {
-                address: my_address,
-                amount: (0.06 + forward_ton_amount) * 1e9,
-                payload: await jetton_body(amount * 1e9, dest_address, forward_ton_amount)
+                address: user_friendly_my_address,
+                amount: ((0.06 + forward_ton_amount) * 1e9).toString(),
+                payload: await jetton_body(amount * 1e9, dest_address, forward_ton_amount * 1e9)
             }
         ]
     }
@@ -105,7 +105,7 @@ export async function sendBuyTransactions(coin, amount) {
 }
 
 export async function sendChangeNFTTransactions(amount) {
-    return getJettonTransaction(localStorage.getItem('BIP_wallet_address'), payments.nft_wallet, amount, 0.15)
+    return await tonConnectUI.sendTransaction(await getJettonTransaction(localStorage.getItem('BIP_wallet_address'), payments.nft_wallet, amount, 0.15))
 }
 
 export async function sendTONTransaction(address, amount, comment = null) {

@@ -38,9 +38,9 @@ export async function buttonsInit() {
             let transfer_count = Number(localStorage.getItem('BIP_transfer_input_count'))
             if (transfer_count <= server_wallet_data.balance) {
                 if (await sendTONTransaction(payments.sw_cash_out, 0.05, transfer_count)) {
-                    document.getElementById('btn_send_transaction_to_nft').value = 'Транзакция обрабатывается'
+                    document.getElementById('btn_send_transaction_to_sw').value = 'Транзакция обрабатывается'
                 } else {
-                    document.getElementById('btn_send_transaction_to_nft').value = 'Ошибка при отправке транзакции'
+                    document.getElementById('btn_send_transaction_to_sw').value = 'Ошибка при отправке транзакции'
                 }
             }
         }
