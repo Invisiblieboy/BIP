@@ -28,6 +28,8 @@ async def main():
         await storage.set_item('wallet2id', '{}')
     if not await storage.get_item('id2user'):
         await storage.set_item('id2user', '{}')
+    if not await storage.get_item('sw_user_data'):
+        await storage.set_item('sw_user_data', '{}')
 
     await v1.init()
 
