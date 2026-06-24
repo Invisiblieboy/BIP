@@ -1,6 +1,8 @@
 .venv
-.idea
 .env
+
+.idea/
+.vscode/
 
 logs
 *.log
@@ -8,6 +10,7 @@ logs
 node_modules
 temp/
 *.local
+*.session
 test.*
 
 Crypto_admin/wallet/
