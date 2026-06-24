@@ -71,6 +71,13 @@ function updateBipPrice() {
     })
 }
 
+async function paymentsUpdate() {
+    await axios.get('https://api.biptoken.xyz/v1/info/payments').then((response) => {
+        if (response.status === 200) {
+            payments = response.data
+        }
+    })
+}
 
 export function updatePriceAndBalance() {
     let address = localStorage.getItem('wallet_address')
@@ -132,6 +139,16 @@ export function creteArrowListener(elem) {
     })
 }
 
+export async function UpdatersInit() {
+    setIntervalImmediately(updateRubPrice, 20 * 60 * 1000)
+    setIntervalImmediately(updateTonPrice, 60 * 1000)
+    setIntervalImmediately(updateBipPrice, 60 * 1000)
+    setIntervalImmediately(get_server_wallet_data, 10 * 1000)
+
+    setIntervalImmediately(updatePriceAndBalance, 10 * 1000)
+    setIntervalImmediately(paymentsUpdate, 20 * 60 * 1000)
+}
+
 export async function utilsInit() {
     await buttonsInit()
     tgInit()
@@ -151,22 +168,6 @@ export async function utilsInit() {
     const div = document.createElement('div');
     div.id = "bottom-navigation";
     $root.appendChild(div);
-
-
-    setInterval(updateRubPrice, 20 * 60 * 1000)
-    setInterval(updateTonPrice, 60 * 1000)
-    setInterval(updateBipPrice, 60 * 1000)
-    setIntervalImmediately(get_server_wallet_data, 10 * 1000)
-
-
-    setInterval(updatePriceAndBalance, 10 * 1000)
-
-
-    await axios.get('https://api.biptoken.xyz/v1/info/payments').then((response) => {
-        if (response.status === 200) {
-            payments = response.data
-        }
-    })
 
     is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
