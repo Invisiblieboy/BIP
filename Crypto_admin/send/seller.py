@@ -1,6 +1,4 @@
-import asyncio
-
-from data.config import TONCENTER_API_KEY, BIP_JETTON_MASTER_ADDRESS, SW_SEED_PHRASE
+from data.config import TONAPI_KEY, BIP_JETTON_MASTER_ADDRESS
 from tonutils.client import TonapiClient
 from tonutils.wallet import HighloadWalletV3
 from tonutils.wallet.data import TransferJettonData
@@ -8,7 +6,7 @@ from tonutils.wallet.data import TransferJettonData
 
 class Seller:
     def __init__(self, seed_phrase: list[str]):
-        self._client = TonapiClient(api_key=TONCENTER_API_KEY, is_testnet=False)
+        self._client = TonapiClient(api_key=TONAPI_KEY, is_testnet=False)
         self.__wallet_H3, public_key, private_key, mnemonic = HighloadWalletV3.from_mnemonic(self._client, seed_phrase)
 
     async def sendBIP(self, data_list: list[tuple[str, float, str]]) -> str:
