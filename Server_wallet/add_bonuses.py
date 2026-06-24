@@ -7,22 +7,26 @@ import simplejson as json
 from pyrogram import Client
 from uuid_extensions import uuid7str
 
-from data.settings import BIP_address, proxies, BIP_decimals
+from data.settings import BIP_address, proxies, BIP_decimals, API_ID, API_HASH
 from storage import storage as redis_storage
 from utils import events_parse
 
 
 async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders', amount: str | float | int = 0.05):
-    data = json.loads(await redis_storage.get_item('user_data'))
-    id2wallet = json.loads(await redis_storage.get_item('BIP_id2wallet', full_key=True))
+    raw_user_data = await redis_storage.get_item('user_data')
+    data = json.loads(raw_user_data) if raw_user_data else {}
+
+    raw_id2wallet = await redis_storage.get_item('BIP_id2wallet', full_key=True)
+    id2wallet = json.loads(raw_id2wallet) if raw_id2wallet else {}
 
     if not app:
-        app = Client("BIPholders_stat_bot")
+        app = Client("BIPholders_stat_bot", api_id=API_ID, api_hash=API_HASH)
         await app.start()
         try:
-            return await add_member_daily_bonus(app, chat_id, amount)
+            await add_member_daily_bonus(app, chat_id, amount)
         finally:
             await app.stop()
+            return
 
     chat = await app.get_chat(chat_id)
     amount = round(amount, 10)
@@ -41,9 +45,6 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
         data[wallet_owner]['balance'] = round(float(data[wallet_owner]['balance']) + amount, 10).__str__()
         data[wallet_owner]['transactions'][time.time().__str__()] = {"text": f'Chat member bonus', "type": 1002,
                                                                      "value": amount, "id": uuid7str()}
-
-        # a = {"id": user.id,  #      "first_name": user.first_name,  #      "last_name": user.last_name,  #      "username": user.username,  #      "is_bot": user.is_bot,  #      "joined_date": member.joined_date})
-
     await redis_storage.set_item('user_data', data)
     print('success add_member_daily_bonus')
 
@@ -90,9 +91,6 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
 
             bonus = __get_bonus({"balance": wallet_balance, "transactions": a}, value, time.time() - 23 * 60 * 60)
 
-            if bonus <= 0:
-                continue
-
             users_data[wallet_owner]['balance'] = round(float(users_data[wallet_owner]['balance']) + bonus, 10)
             users_data[wallet_owner]['transactions'][time.time()] = {"text": f'Deposit percents', "type": 1003,
                                                                      "value": bonus, "id": uuid7str()}
@@ -117,19 +115,37 @@ async def add_member_percents_by_sw_balance(value: float = 0.3 / 365):
 
     for user_data in data.values():
         bonus = __get_bonus(user_data, value)
-        if bonus <= 0:
-            continue
 
         user_data['balance'] = round(float(user_data['balance']) + bonus, 10)
         user_data['transactions'][time.time()] = {"text": f'Deposit percents', "type": 1001, "value": bonus,
                                                   "id": uuid7str()}
 
     await redis_storage.set_item('user_data', json.dumps(data))
+    print('success add_member_percents_by_sw_balance')
+
+
+async def add_BIP_by_admin(wallet: str, amount: float | int):
+    if wallet[:2] != '0:':
+        raise Exception('Incorrect wallet type')
+
+    data = json.loads(await redis_storage.get_item('user_data'))
+    user_data = data.get(wallet)
+
+    if not user_data:
+        raise Exception('Unknown user')
+
+    user_data['balance'] = round(float(user_data['balance']) + amount, 10)
+    user_data['transactions'][time.time()] = {"text": f'BIP from admin', "type": 1000, "value": amount,
+                                              "id": uuid7str()}
+
+    await redis_storage.set_item('user_data', data)
+    await redis_storage.save('user_data', 'user_data')
 
 
 async def main():
     await add_member_daily_bonus()
     await add_member_percents_by_cw_balance()
+    await add_member_percents_by_sw_balance()
     await redis_storage.save('user_data', 'user_data')
 
 

@@ -1,6 +1,6 @@
 import {page_book, page_cart, page_error_tg, page_info, page_nft, page_wallet} from './page/templates.js'
 import {current_page, navInit} from "./page/nav-bar.js";
-import {parse_url, utilsInit} from "./utils/utils.js";
+import {parse_url, UpdatersInit, utilsInit} from "./utils/utils.js";
 import {check_verif} from "./utils/tgUtils.js";
 import {cartInit} from "./page/cart.js";
 import {walletInit} from "./page/wallet.js";
@@ -34,6 +34,7 @@ export function refreshPage() {
 async function main() {
     parse_url()
     await linksInit()
+    await UpdatersInit()
     if (!check_verif()) {
         await utilsInit()
         navInit()
