@@ -4,12 +4,12 @@ import time
 
 import aiohttp
 import simplejson as json
-from pyrogram import Client
-from uuid_extensions import uuid7str
+from hydrogram import Client
 
 from data.settings import BIP_address, proxies, BIP_decimals, API_ID, API_HASH
 from storage import storage as redis_storage
 from utils import events_parse
+from uuid import uuid7
 
 
 async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders', amount: str | float | int = 0.05):
@@ -20,13 +20,13 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
     id2wallet = json.loads(raw_id2wallet) if raw_id2wallet else {}
 
     if not app:
-        app = Client("BIPholders_stat_bot", api_id=API_ID, api_hash=API_HASH)
+        app = Client("BIPholders_stat_bot", API_ID, API_HASH)
         await app.start()
         try:
             await add_member_daily_bonus(app, chat_id, amount)
         finally:
             await app.stop()
-            return
+        return
 
     chat = await app.get_chat(chat_id)
     amount = round(amount, 10)
@@ -44,7 +44,7 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
 
         data[wallet_owner]['balance'] = round(float(data[wallet_owner]['balance']) + amount, 10).__str__()
         data[wallet_owner]['transactions'][time.time().__str__()] = {"text": f'Chat member bonus', "type": 1002,
-                                                                     "value": amount, "id": uuid7str()}
+                                                                     "value": amount, "id": str(uuid7())}
     await redis_storage.set_item('user_data', data)
     print('success add_member_daily_bonus')
 
@@ -93,7 +93,7 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
 
             users_data[wallet_owner]['balance'] = round(float(users_data[wallet_owner]['balance']) + bonus, 10)
             users_data[wallet_owner]['transactions'][time.time()] = {"text": f'Deposit percents', "type": 1003,
-                                                                     "value": bonus, "id": uuid7str()}
+                                                                     "value": bonus, "id": str(uuid7())}
 
     await redis_storage.set_item('user_data', users_data)
     print('success add_member_percents_by_cw_balance')
@@ -118,7 +118,7 @@ async def add_member_percents_by_sw_balance(value: float = 0.3 / 365):
 
         user_data['balance'] = round(float(user_data['balance']) + bonus, 10)
         user_data['transactions'][time.time()] = {"text": f'Deposit percents', "type": 1001, "value": bonus,
-                                                  "id": uuid7str()}
+                                                  "id": str(uuid7())}
 
     await redis_storage.set_item('user_data', json.dumps(data))
     print('success add_member_percents_by_sw_balance')
@@ -136,7 +136,7 @@ async def add_BIP_by_admin(wallet: str, amount: float | int):
 
     user_data['balance'] = round(float(user_data['balance']) + amount, 10)
     user_data['transactions'][time.time()] = {"text": f'BIP from admin', "type": 1000, "value": amount,
-                                              "id": uuid7str()}
+                                              "id": str(uuid7())}
 
     await redis_storage.set_item('user_data', data)
     await redis_storage.save('user_data', 'user_data')

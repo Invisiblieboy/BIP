@@ -52,7 +52,7 @@ export function walletInit() {
 function updateServerWalletBalanceHTML() {
     try {
         let balance = server_wallet_data.balance
-        if (balance) {
+        if (balance || balance === 0) {
             document.getElementById('sw_balance_num').innerHTML = Math.floor(balance * 1000) / 1000
         }
     } catch (e) {
@@ -70,22 +70,24 @@ function updateServerWalletTransactionsHTML() {
             let date_last = ''
             for (const key of keys.reverse()) {
                 let value = server_wallet_data.transactions[key]
-                let date = new Date(key * 1000);
-                let date_md_str = date.toLocaleString('ru-RU', {
-                    month: 'long',
-                    day: 'numeric'
-                })
-                if (date_last !== date_md_str) {
-                    date_last = date_md_str
-                    server_wallet_transactions_str += day_html
-                    day_html = `<p class="text-lg">${date_md_str}</p>`
+                if (value.value !== 0) {
+                    let date = new Date(key * 1000);
+                    let date_md_str = date.toLocaleString('ru-RU', {
+                        month: 'long',
+                        day: 'numeric'
+                    })
+                    if (date_last !== date_md_str) {
+                        date_last = date_md_str
+                        server_wallet_transactions_str += day_html
+                        day_html = `<p class="text-lg">${date_md_str}</p>`
+                    }
+                    let receive = value.value > 0
+                    day_html += `
+                    <div class="m-2 ml-4">
+                        <p class="inline">${value.text}</p>
+                        <p class="fl-r inline ${receive ? 'green' : ''}">${receive ? '+' : '-'}${Math.round(Math.abs(value.value) * 1000) / 1000} BIP</p>
+                    </div>`
                 }
-                let receive = value.value > 0
-                day_html += `
-                <div class="m-2 ml-4">
-                    <p class="inline">${value.text}</p>
-                    <p class="fl-r inline ${receive ? 'green' : ''}">${receive ? '+' : '-'}${Math.round(value.value * 1000) / 1000} BIP</p>
-                </div>`
             }
             server_wallet_transactions_str += `<div class="mt-4 trs-day">${day_html}</div>`
             if (sw_transactions_list.innerHTML !== server_wallet_transactions_str) {
