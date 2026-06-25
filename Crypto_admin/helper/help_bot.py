@@ -24,7 +24,7 @@ async def cmd_start(message: types.Message):
     else:
         await message.answer(text='You not in white list')
 
-    await message.answer(text=f'Your username: {user_id}')
+    await message.answer(text=f'Your username: @{user_id}')
 
 
 async def calcBIPCount(value: float, price_correct=1.0):
@@ -41,7 +41,7 @@ async def send(message: types.Message):
             uwallet, amount_bip, comment = trans
             if uwallet and amount_bip and comment:
                 tri = await Seller(SENDER_SEED_PHRASE).sendBIP([(uwallet, amount_bip, comment)])
-                await message.answer(f'Success tri: `{tri}`')
+                await message.answer(f'Success tri: `{tri}`', parse_mode="MARKDOWN")
             else:
                 await message.answer(f'Error\n`{uwallet}`\n`{amount_bip}`\n`{comment}`', parse_mode="MARKDOWN")
             del transactions[admin_uname]
