@@ -17,15 +17,6 @@ async def wallet_info(tgInitData):
     except AuthError as e:
         return {'state': 'invalid', 'op': '-100', 'detail': e.detail}
 
-    # for path in ['C:/Work/Projects/BIP/Server_wallet/data/data.json',
-    #              '/usr/dev/BIP/Server_wallet/data/data.json'][::-1]:
-    #     if os.path.isfile(path):
-    #         with open(path, 'r') as f:
-    #             users_data: dict = json.load(f)
-    #             break
-    # else:
-    #     return {'state': 'invalid', 'op': '-101', 'detail': 'Server error'}
-
     users_data = json.loads(await storage.get_item('sw_user_data'))
     id2wallet = json.loads(await storage.get_item('id2wallet'))
     addr = id2wallet.get(user_id)

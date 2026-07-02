@@ -1,0 +1,47 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+      - "8000:8000"
+
+  api:
+    build: ./API
+    network_mode: "service:redis"
+    env_file:
+      - ./API/.env
+    depends_on:
+      - redis
+      - server_wallet
+    volumes:
+      - ./API/data:/app/data
+
+  nft:
+    build: ./NFT
+    ports:
+      - "8100:8000"
+
+  tg_bot:
+    build: ./Tg_bot
+    env_file:
+      - ./Tg_bot/.env
+
+  crypto_admin:
+    build: ./Crypto_admin
+    network_mode: "service:redis"
+    env_file:
+      - ./Crypto_admin/.env
+    depends_on:
+      - redis
+      - server_wallet
+
+  server_wallet:
+    build: ./Server_wallet
+    network_mode: "service:redis"
+    env_file:
+      - ./Server_wallet/.env
+    depends_on:
+      - redis
+    volumes:
+      - ./Server_wallet/data/user_data.json:/app/data/user_data.json
+

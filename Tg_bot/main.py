@@ -4,17 +4,14 @@ import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 from aiogram.types import InlineKeyboardButton, WebAppInfo
+from loguru import logger
 
 from config import BOT_TOKEN, ADMIN_ID, APP_URL
+from my_loger import LoggingMiddleware
 
-# from src.backend.connector import get_connector
-# from utils.site_tokens import SiteTokens
-logging.getLogger("aiogram.event").setLevel(logging.WARNING)
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-
-
-# ST = SiteTokens()
+dp.message.outer_middleware(LoggingMiddleware())
 
 
 @dp.message(Command("start"))
@@ -30,20 +27,11 @@ async def help(message: types.Message):
     await bot.send_message(message.from_user.id, f"Написать администатору: {ADMIN_ID}")
 
 
-# @dp.message(Command("disconnect_wallet"))
-# async def app(message: types.Message):
-#     chat_id = message.chat.id.__str__()
-#     connector = get_connector(int(chat_id))
-#     if await connector.restore_connection():
-#         asyncio.create_task(connector.disconnect())
-#         await message.answer('Успешно')
-#     else:
-#         await message.answer('Кошелек не подключен')
-
-
 async def main():
+    logger.info('Главный телеграм бот запущен')
     await dp.start_polling(bot)
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.WARNING)
     asyncio.run(main())

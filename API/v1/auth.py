@@ -28,8 +28,11 @@ async def nuw_user(wallet_address, tgInitData):
     wallet2id[wallet_address] = id
 
     await storage.set_item('id2wallet', json.dumps(id2wallet))
+    await storage.save('id2wallet', 'id2wallet')
     await storage.set_item('wallet2id', json.dumps(wallet2id))
+    await storage.save('wallet2id', 'wallet2id')
     await storage.set_item('id2user', json.dumps(id2user))
+    await storage.save('id2user', 'id2user')
 
     return {'state': 'success', 'op': '0'}
 
@@ -82,12 +85,14 @@ async def add_to_banlist(user: str):
     banlist: dict = json.loads(await storage.get_item('banlist'))
     banlist[user] = 'true'
     await storage.set_item('banlist', json.dumps(banlist))
+    await storage.save('banlist', 'banlist')
 
 
 async def remove_from_banlist(user: str):
     banlist: dict = json.loads(await storage.get_item('banlist'))
     banlist[user] = 'false'
     await storage.set_item('banlist', json.dumps(banlist))
+    await storage.save('banlist', 'banlist')
 
 
 async def main():

@@ -1,0 +1,15 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  server_wallet:
+    build: .
+    network_mode: "service:redis"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    volumes:
+      - ./data/user_data.json:/app/data/user_data.json

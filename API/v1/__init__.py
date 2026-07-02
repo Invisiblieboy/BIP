@@ -8,5 +8,6 @@ v1_router.include_router(info.info_router)
 v1_router.include_router(auth.auth_router)
 v1_router.include_router(server_wallet.wallet_router)
 
+
 async def init():
     return await price.init()

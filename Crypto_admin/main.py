@@ -1,7 +1,13 @@
 import asyncio
+import sys
+
+from loguru import logger
 
 from helper import help_bot
 from send import appTransactions
+
+logger.remove()
+logger.add(sys.stdout, format="{time:YYYY-MM-DD HH:mm:ss} | <level>{level: <8}</level> | {message}")
 
 
 async def main():
