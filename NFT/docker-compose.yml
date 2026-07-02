@@ -1,0 +1,5 @@
+services:
+  nft:
+    build: .
+    ports:
+      - "8100:8000"
