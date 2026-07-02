@@ -2,6 +2,7 @@ import asyncio
 
 import aiohttp
 from fastapi import APIRouter
+from loguru import logger
 
 from utils.config import *
 from utils.storage import storage
@@ -57,7 +58,11 @@ async def tokens_price():
 async def passive_update(s=1):
     while 1:
         for key in token_url_list.keys():
-            await price_update(key)
+            try:
+                await price_update(key)
+            except Exception as e:
+                logger.exception(f'passive_update error: {e}')
+        logger.debug('Цены токенов обновлены')
         await asyncio.sleep(s)
 
 
