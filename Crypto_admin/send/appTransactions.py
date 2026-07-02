@@ -1,14 +1,14 @@
 import asyncio
 import json
 import time
-from pprint import pprint
+from uuid import uuid7
 
 import aiohttp
 from data.config import RECEIVE_ADDRESS, TESTER_ADDRESS, USDT_JETTON_MASTER_ADDRESS, MIN_TON_BUY_LIMIT, \
     MIN_USDT_BUY_LIMIT, PRICE_TAX, SW_RECEIVE_ADDRESS, SW_SEED_PHRASE, SENDER_SEED_PHRASE
 from data.storage import storage
+from loguru import logger
 from send.seller import Seller
-from uuid_extensions import uuid7str
 
 
 async def __actionParse(action: dict, tokens_white_list: list) -> dict:
@@ -74,12 +74,13 @@ async def checkAndSendNuwTransactions(receive_address, tokens: list[str] | None 
                                 amount_bip = await calcBIPCount(reply['amount'], reply['token'],
                                                                 price_correct=PRICE_TAX)
                                 message = f'Спасибо за покупку BIP на {reply['amount']} {reply['token']}'
+                                logger.info(f'Новая покупка от {reply['sender']} на {amount_bip} BIP')
+
                                 BIP_send_list.append((reply['sender'], amount_bip, message))
 
                         await storage.set_item('processed_transactions', processed_transactions_str)
                     await storage.set_item('last_transaction_timestamp', last_transaction_timestamp)
                 if BIP_send_list:
-                    pprint(BIP_send_list)
                     await Seller(SENDER_SEED_PHRASE).sendBIP(BIP_send_list)
 
 
@@ -95,7 +96,8 @@ async def checkAndSendSWCashOut(receive_address):
                 events = await response.json()
                 events['events'].reverse()
                 BIP_send_list = []
-                users_data = json.loads(await storage.get_item('sw_user_data'))
+                raw_sw_user_data = await storage.get_item('sw_user_data')
+                users_data = json.loads(raw_sw_user_data if raw_sw_user_data else '{}')
                 for transaction in events['events']:
                     if transaction['timestamp'] > last_cash_out_timestamp:
                         last_cash_out_timestamp = transaction['timestamp']
@@ -108,7 +110,7 @@ async def checkAndSendSWCashOut(receive_address):
 
                                 user_cash_out = float(reply['comment']) if reply.get('comment') else sw_balance
                                 if 0 < user_cash_out <= sw_balance:
-                                    wd_id = uuid7str()
+                                    wd_id = str(uuid7())
                                     users_data[reply['sender']]['balance'] = sw_balance - user_cash_out
                                     users_data[reply['sender']]['transactions'][time.time()] = {"text": f'Withdraw',
                                                                                                 "type": 2001,
@@ -116,35 +118,37 @@ async def checkAndSendSWCashOut(receive_address):
                                                                                                 "id": wd_id}
 
                                     await storage.set_item('sw_user_data', users_data)
+                                    logger.info(f'Новый вывод для {reply['sender']} на {user_cash_out} BIP')
                                     BIP_send_list.append((reply['sender'], user_cash_out,
                                                           f'Вывод {round(user_cash_out, 1)} BIP id: ' + wd_id))
 
                         await storage.set_item('processed_cash_outs', processed_cash_outs_str)
                     await storage.set_item('last_cash_out_timestamp', last_cash_out_timestamp)
                 if BIP_send_list:
-                    pprint(BIP_send_list)
                     await Seller(SW_SEED_PHRASE).sendBIP(BIP_send_list)
 
 
 async def autoHandlingNuwBuys(sleep=3):
     await storage.set_item('last_transaction_timestamp', str(int(time.time())))
     await storage.set_item('processed_transactions', 'start')
+    logger.info('Обработка новый покупок запущена')
     while 1:
         try:
             await checkAndSendNuwTransactions(RECEIVE_ADDRESS)
         except Exception as e:
-            print(time.time(), 'checkAndSendNuwTransactions', e)
+            logger.error((time.time(), 'checkAndSendNuwTransactions', e))
         await asyncio.sleep(sleep)
 
 
 async def autoHandlingSWCashOut(sleep=3):
     await storage.set_item('last_cash_out_timestamp', str(int(time.time())))
     await storage.set_item('processed_cash_outs', 'start')
+    logger.info('Обработка новый выводов запущена')
     while 1:
         try:
             await checkAndSendSWCashOut(SW_RECEIVE_ADDRESS)
         except Exception as e:
-            print(time.time(), 'checkAndSendSWCashOut', e)
+            logger.error((time.time(), 'checkAndSendSWCashOut', e))
         await asyncio.sleep(sleep)
 
 

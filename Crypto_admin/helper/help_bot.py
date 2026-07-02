@@ -6,11 +6,14 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 from data.config import BOT_TOKEN, PRICE_TAX, SENDER_SEED_PHRASE
 from data.storage import storage
+from helper.my_logger import LoggingMiddleware
+from loguru import logger
 from send.seller import Seller
 
-logging.getLogger("aiogram.event").setLevel(logging.WARNING)
+logging.basicConfig(level=logging.WARNING)
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+dp.message.outer_middleware(LoggingMiddleware())
 
 white_list = []
 transactions = {}
@@ -116,6 +119,12 @@ async def init():
     # please split |
     # username1|uname2|uname3
     await storage.set_item('tg_payment_admins', 'spiwt')
+    if not await storage.get_item('id2wallet'):
+        await storage.set_item('id2wallet', {})
+    if not await storage.get_item('id2user'):
+        await storage.set_item('id2user', {})
+    if not await storage.get_item('banlist'):
+        await storage.set_item('banlist', {})
 
 
 async def main():
@@ -124,6 +133,7 @@ async def main():
     await init()
     white_list = await storage.get_item('tg_payment_admins')
     white_list = white_list.split('|')
+    logger.info('Бот-помощник запущен')
     await dp.start_polling(bot)
 
 
