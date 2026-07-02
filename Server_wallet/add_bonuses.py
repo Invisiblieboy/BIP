@@ -1,15 +1,16 @@
 import asyncio
+import json
 import random
 import time
 
 import aiohttp
-import simplejson as json
 from hydrogram import Client
+from loguru import logger
+from uuid6 import uuid7
 
 from data.settings import BIP_address, proxies, BIP_decimals, API_ID, API_HASH
 from storage import storage as redis_storage
 from utils import events_parse
-from uuid import uuid7
 
 
 async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders', amount: str | float | int = 0.05):
@@ -46,7 +47,7 @@ async def add_member_daily_bonus(app: Client = None, chat_id: str = '@BIPholders
         data[wallet_owner]['transactions'][time.time().__str__()] = {"text": f'Chat member bonus', "type": 1002,
                                                                      "value": amount, "id": str(uuid7())}
     await redis_storage.set_item('user_data', data)
-    print('success add_member_daily_bonus')
+    logger.info('success add_member_daily_bonus')
 
 
 async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: aiohttp.ClientSession = None):
@@ -96,7 +97,7 @@ async def add_member_percents_by_cw_balance(value: float = 0.3 / 365, session: a
                                                                      "value": bonus, "id": str(uuid7())}
 
     await redis_storage.set_item('user_data', users_data)
-    print('success add_member_percents_by_cw_balance')
+    logger.info('success add_member_percents_by_cw_balance')
 
 
 def __get_bonus(user_data, value, end_date=time.time() - 23 * 60 * 60):
@@ -121,7 +122,7 @@ async def add_member_percents_by_sw_balance(value: float = 0.3 / 365):
                                                   "id": str(uuid7())}
 
     await redis_storage.set_item('user_data', json.dumps(data))
-    print('success add_member_percents_by_sw_balance')
+    logger.info('success add_member_percents_by_sw_balance')
 
 
 async def add_BIP_by_admin(wallet: str, amount: float | int):
