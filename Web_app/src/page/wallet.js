@@ -40,20 +40,23 @@ export function walletInit() {
 
 
     // preload_nft_img([100, 1000, 10000, 1])
+    updateWalletPageHTML()
+}
 
-
+export function updateWalletPageHTML() {
     updateBIPBalanceHTML()
-
     updateServerWalletTransactionsHTML()
     updateServerWalletBalanceHTML()
 }
 
-
-function updateServerWalletBalanceHTML() {
+export function updateServerWalletBalanceHTML() {
     try {
         let balance = server_wallet_data.balance
         if (balance || balance === 0) {
-            document.getElementById('sw_balance_num').innerHTML = Math.floor(balance * 1000) / 1000
+            let sw_balance_num = document.getElementById('sw_balance_num')
+            if (sw_balance_num) {
+                sw_balance_num.innerHTML = Math.floor(balance * 1000) / 1000
+            }
         }
     } catch (e) {
         console.log(e)
