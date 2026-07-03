@@ -20,6 +20,7 @@ async def lifespan(app: FastAPI):
                 logger.debug(f'загружено {key}')
             else:
                 await storage.set_item(key, '{}')
+                await storage.save(key, key)
 
     if not await storage.get_item('sw_user_data'):
         await storage.set_item('sw_user_data', '{}')

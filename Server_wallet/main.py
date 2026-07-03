@@ -37,6 +37,7 @@ async def main():
         logger.debug('user_data загружены из файла')
     else:
         await redis_storage.set_item('user_data', '{}')
+        await redis_storage.save('user_data', 'user_data')
         logger.debug('user_data не найдены')
 
     await asyncio.sleep(get_seconds_until_tomorrow_utc())
