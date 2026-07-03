@@ -1,12 +1,13 @@
 services:
   redis:
     image: redis:7-alpine
+    restart: unless-stopped
     ports:
-      - "6379:6379"
       - "8000:8000"
 
   api:
     build: ./API
+    restart: unless-stopped
     network_mode: "service:redis"
     env_file:
       - ./API/.env
@@ -18,16 +19,19 @@ services:
 
   nft:
     build: ./NFT
+    restart: unless-stopped
     ports:
       - "8100:8000"
 
   tg_bot:
     build: ./Tg_bot
+    restart: unless-stopped
     env_file:
       - ./Tg_bot/.env
 
   crypto_admin:
     build: ./Crypto_admin
+    restart: unless-stopped
     network_mode: "service:redis"
     env_file:
       - ./Crypto_admin/.env
@@ -37,6 +41,7 @@ services:
 
   server_wallet:
     build: ./Server_wallet
+    restart: unless-stopped
     network_mode: "service:redis"
     env_file:
       - ./Server_wallet/.env
