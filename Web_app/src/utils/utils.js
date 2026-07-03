@@ -1,4 +1,4 @@
-import {updateBIPBalanceHTML} from "../page/wallet.js";
+import {updateWalletPageHTML} from "../page/wallet.js";
 import {init as tgInit, tg} from "./tgUtils.js";
 import {swipeInit} from "../page/swipe.js";
 import {buttonsInit} from "./buttons_handler.js";
@@ -34,6 +34,8 @@ export function get_server_wallet_data(tgInitData = tg.initData) {
     }).then((response) => {
         if (response.data['op'] === "0") {
             server_wallet_data = response.data.data
+        } else {
+            server_wallet_data = {"balance": 0, "transactions": {}}
         }
     }).finally(() => {
         return server_wallet_data
@@ -45,30 +47,20 @@ function setIntervalImmediately(func, interval, ...args) {
     return setInterval(func, interval, ...args); // Затем функция продолжает работать по интервалу
 }
 
-function updateRubPrice() {
-    axios.get('https://www.cbr-xml-daily.ru/daily_json.js').then((response) => {
-        localStorage.setItem(`RUB_price`, response.data.Valute.USD.Value)
-    }).finally(() => {
-        return localStorage.getItem(`RUB_price`)
-    })
-}
-
-
-function updateTonPrice() {
-    axios.get('https://api.coingecko.com/api/v3/coins/the-open-network').then((response) => {
-        localStorage.setItem(`TON_price`, response.data.market_data.current_price.usd)
-    }).finally(() => {
-        return localStorage.getItem(`TON_price`)
-    })
-}
-
-function updateBipPrice() {
-    let pool_addr = "EQCJWbehGyHtkgw6IMzcY1VPAJwre1sWWGvqKYm1_h0CpsJe"
-    axios.get(`https://api.geckoterminal.com/api/v2/networks/ton/pools/${pool_addr}`).then((response) => {
-        localStorage.setItem(`BIP_price`, response.data.data.attributes.base_token_price_quote_token)
-    }).finally(() => {
-        return localStorage.getItem(`BIP_price`)
-    })
+function updateTokensPrice() {
+    try {
+        axios.get('https://api.biptoken.xyz/v1/price/tokens').then((response) => {
+            if (response.status === 200) {
+                localStorage.setItem(`BIP_price`, response.data.bip)
+                localStorage.setItem(`TON_price`, response.data.ton)
+                localStorage.setItem(`RUB_price`, response.data.rub)
+            } else {
+                console.log(response)
+            }
+        })
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 async function paymentsUpdate() {
@@ -95,7 +87,7 @@ export function updatePriceAndBalance() {
                     }
                 }
             }
-            updateBIPBalanceHTML()
+            updateWalletPageHTML()
         })
         axios.get(`https://tonapi.io/v2/accounts/${address}`)
             .then((response) => {
@@ -103,7 +95,7 @@ export function updatePriceAndBalance() {
             }).catch((e) => {
             localStorage.setItem('TON_balance', 0)
         }).finally(() => {
-            updateBIPBalanceHTML()
+            updateWalletPageHTML()
         })
 
     } else {
@@ -140,9 +132,7 @@ export function creteArrowListener(elem) {
 }
 
 export async function UpdatersInit() {
-    setIntervalImmediately(updateRubPrice, 20 * 60 * 1000)
-    setIntervalImmediately(updateTonPrice, 60 * 1000)
-    setIntervalImmediately(updateBipPrice, 60 * 1000)
+    setIntervalImmediately(updateTokensPrice, 60 * 1000)
     setIntervalImmediately(get_server_wallet_data, 10 * 1000)
 
     setIntervalImmediately(updatePriceAndBalance, 10 * 1000)
