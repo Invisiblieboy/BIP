@@ -7,3 +7,4 @@ cp nginx.conf /etc/nginx/nginx.conf;
 nginx -s reload
 
 docker compose up -d --build
+docker image prune -f
