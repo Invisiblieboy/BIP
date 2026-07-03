@@ -62,7 +62,7 @@ async def passive_update(s=1):
                 await price_update(key)
             except Exception as e:
                 logger.exception(f'passive_update error: {e}')
-        logger.debug('Цены токенов обновлены')
+        #logger.debug('Цены токенов обновлены')
         await asyncio.sleep(s)
 
 
