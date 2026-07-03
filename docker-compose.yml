@@ -48,5 +48,5 @@ services:
     depends_on:
       - redis
     volumes:
-      - ./Server_wallet/data/user_data.json:/app/data/user_data.json
+      - ./Server_wallet/data:/app/data
 
