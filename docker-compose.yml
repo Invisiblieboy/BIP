@@ -1,6 +1,7 @@
 services:
   redis:
     image: redis:7-alpine
+    command: redis-server --loglevel warning
     restart: unless-stopped
     ports:
       - "8000:8000"
