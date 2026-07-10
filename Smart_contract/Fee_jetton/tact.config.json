@@ -1,0 +1,10 @@
+{
+    "projects": [{
+        "name": "lesson5",
+        "path": "./sources/contract.tact",
+        "output": "./sources/output",
+        "options":{
+            
+        }
+    }]
+}
