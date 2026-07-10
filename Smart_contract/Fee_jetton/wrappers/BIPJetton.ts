@@ -1,0 +1,1 @@
+export * from '../build/BIPJetton/tact_JettonDefaultWallet';

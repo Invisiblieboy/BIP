@@ -125,6 +125,7 @@ async def checkAndSendSWCashOut(receive_address):
                         await storage.set_item('processed_cash_outs', processed_cash_outs_str)
                     await storage.set_item('last_cash_out_timestamp', last_cash_out_timestamp)
                 if BIP_send_list:
+                    await storage.save('sw_user_data','sw_user_data')
                     await Seller(SW_SEED_PHRASE).sendBIP(BIP_send_list)
 
 
