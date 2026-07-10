@@ -16,6 +16,5 @@ test.*
 Crypto_admin/wallet/
 Crypto_admin/utils/
 Crypto_admin/data/wallets/
-Smart_contract/
 
 __pycache__/
