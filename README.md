@@ -1,8 +1,20 @@
-Hi. This my first big project.
+# Токен в TON & Фронтенд для сайта & Бекенд для сайта 
 
+сайт - https://t.me/BIPapp_bot?start=github
+если нет тг (только с впн) - https://app.biptoken.xyz/?tg_mode=true
 
-Here are codes for:
- - my crypto token on TON network
- - backend and frontend of a website dedicated to the token
- - simple assistant bot in Telegram
-   
+start.sh - Запуск проекта через docker
+docker-compose.yml - конфигурация docker 
+nginx.conf - конфигурация веб-сервера 
+.github - CI/CD
+
+Smart_contract - Код комиссионного токена и нфт коллекции
+
+Web_app - Фронтенд сайта
+Бекэнд сайта:
+ - API - аутентификация, верификация пользователей и парсинг рыночных цен
+ - NFT - генерации картинок для NFT и выдачи метаданных коллекции
+ - Crypto_admin - генерации картинок для NFT и выдачи метаданных коллекции
+ - Server_wallet - расчет и начисление ежедневных бонусов и дивидендов
+ - Tg_bot - бот-визитка, перенаправляющий пользователей на сайт
+ - Static - картинки, json
