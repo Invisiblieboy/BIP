@@ -1,17 +1,17 @@
 # Токен в TON & Фронтенд для сайта & Бекенд для сайта 
 
-сайт - https://t.me/BIPapp_bot?start=github
-если нет тг (только с впн) - https://app.biptoken.xyz/?tg_mode=true
-
-start.sh - Запуск проекта через docker
-docker-compose.yml - конфигурация docker 
-nginx.conf - конфигурация веб-сервера 
-.github - CI/CD
-
-Smart_contract - Код комиссионного токена и нфт коллекции
-
-Web_app - Фронтенд сайта
-Бекэнд сайта:
+сайт - https://t.me/BIPapp_bot?start=github <br>
+если нет тг (только с впн) - https://app.biptoken.xyz/?tg_mode=true <br>
+<br>
+start.sh - Запуск проекта через docker <br>
+docker-compose.yml - конфигурация docker <br>
+nginx.conf - конфигурация веб-сервера <br>
+.github - CI/CD <br>
+<br>
+Smart_contract - Код комиссионного токена и нфт коллекции <br>
+<br>
+Web_app - Фронтенд сайта <br>
+Бекэнд сайта: <br>
  - API - аутентификация, верификация пользователей и парсинг рыночных цен
  - NFT - генерации картинок для NFT и выдачи метаданных коллекции
  - Crypto_admin - генерации картинок для NFT и выдачи метаданных коллекции
